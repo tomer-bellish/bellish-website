@@ -78,6 +78,7 @@
   header{-webkit-backdrop-filter:none !important; backdrop-filter:none !important;}
   .nav-links{position:fixed; inset:0; flex-direction:column; justify-content:center; align-items:center; gap:30px !important; font-size:24px !important; background:#111110; transform:translateX(100%); transition:transform .35s ease; z-index:60; margin:0;}
   .nav-links.open{transform:translateX(0);}
+  .hero-img{object-position:58% 72% !important;}
 }
 </style>
 </helmet>
@@ -85,7 +86,7 @@
 <div style="position:relative; height:100vh; width:100%; overflow:hidden; background:#1A1A18;">
 
   <!-- FULL-BLEED HERO IMAGE -->
-  <img src="assets/bhouse-hero.jpg" alt="B House — Kefar Tavor" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+  <img src="assets/bhouse-hero.jpg" alt="B House — Kefar Tavor" class="hero-img" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
   <!-- gradients for legibility -->
   <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(17,17,16,0.55) 0%, rgba(17,17,16,0) 26%, rgba(17,17,16,0) 50%, rgba(17,17,16,0.62) 100%);"></div>
 
@@ -118,6 +119,7 @@
 
 </div>
 
+<sc-if value="{{ showRecognition }}" hint-placeholder-val="{{ false }}">
 <section data-screen-label="Recognition" style="background:#111110; color:#F0EFEB; padding:clamp(72px,10vw,128px) clamp(20px,5vw,48px); border-top:1px solid #222220;">
   <div style="max-width:1320px; margin:0 auto;">
     <div data-anim style="animation:fadeUp .9s cubic-bezier(.22,.61,.36,1) forwards; display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:clamp(40px,5vw,64px);">
@@ -167,9 +169,13 @@
     </div>
   </div>
 </section>
+</sc-if>
 </x-dc>
-<script type="text/x-dc" data-dc-script>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showRecognition&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;}}">
 class Component extends DCLogic {
+  renderVals(){
+    return { showRecognition: this.props.showRecognition ?? false };
+  }
   componentDidMount(){
     if(window.__navBound)return; window.__navBound=true;
     document.addEventListener('click',function(e){
