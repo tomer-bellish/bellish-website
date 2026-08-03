@@ -102,5 +102,10 @@
     if (im) openLb(im);
   });
 
-  (document.body || document.documentElement).appendChild(lb);
+  function mount() {
+    if (lb.parentNode === document.body) return;
+    document.body.appendChild(lb);
+  }
+  if (document.body) mount();
+  else document.addEventListener('DOMContentLoaded', mount, { once: true });
 })();
