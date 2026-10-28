@@ -1,0 +1,2 @@
+# Keep files exactly as deployed (LF), regardless of Windows autocrlf settings
+* text=auto eol=lf
