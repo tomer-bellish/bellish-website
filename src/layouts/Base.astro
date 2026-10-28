@@ -1,0 +1,97 @@
+---
+import '../styles/base.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Path of the canonical URL, e.g. '/projects/'. */
+  path: string;
+  /** og:title when it differs from <title>. */
+  ogTitle?: string;
+  /** JSON-LD blocks, serialized as-is. */
+  jsonLd?: object[];
+  /** Above-the-fold image to preload (LCP). */
+  preload?: string;
+  bodyClass?: string;
+  /** Pages that fade sections in on scroll (.reveal). Home animates on load instead. */
+  reveal?: boolean;
+  noindex?: boolean;
+}
+
+const { title, description, path, ogTitle = title, jsonLd = [], preload, bodyClass, reveal = true, noindex = false } = Astro.props;
+const site = 'https://bellish.co.il';
+const url = site + path;
+const ogImage = `${site}/assets/og-logo.png`;
+const tabnavConfig = JSON.stringify({ language: 'us-en', color: '#000000', buttonColor: '#000000', buttonSize: 'small', widgetSize: 'small', widgetLocation: 'right', buttonLocation: 'bottom' });
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {reveal && <script is:inline>document.documentElement.classList.add('js-anim');</script>}
+  <!-- Cookie consent (Consent Mode v2 defaults) — must load before GTM/gtag -->
+  <script is:inline src="/assets/cookie-consent.js"></script>
+  <!-- Google Tag Manager -->
+  <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T3H6PWPH');</script>
+  <!-- Google tag (gtag.js) — GA4 -->
+  <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-4TLRV6RJNT"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4TLRV6RJNT');
+  </script>
+  <!-- Google Preferred Sources -->
+  <script is:inline async preferred-sources-control="manual" src="https://news.google.com/swg/js/v1/publisher.js"></script>
+  <script is:inline src="/assets/preferred-source.js" defer></script>
+  <script is:inline src="/assets/gtm-events.js"></script>
+
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  {noindex && <meta name="robots" content="noindex">}
+  <meta name="theme-color" content="#111110">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/favicon.png">
+  <link rel="canonical" href={url}>
+  <meta property="og:title" content={ogTitle}>
+  <meta property="og:description" content={description}>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content={url}>
+  <meta property="og:image" content={ogImage}>
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Bellish Architects">
+  <meta property="og:site_name" content="Bellish Architects">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content={ogImage}>
+  {jsonLd.map((data) => <script is:inline type="application/ld+json" set:html={JSON.stringify(data)} />)}
+  <link rel="preload" href="/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+  {preload && <link rel="preload" as="image" href={preload} fetchpriority="high">}
+  <slot name="head" />
+  <script is:inline src="/assets/tabnav-widget.js" tnv-data-config={tabnavConfig} defer></script>
+</head>
+<body class={bodyClass}>
+  <noscript> JavaScript is required for <a href="https://tabnav.com/accessibility-widget">tabnav web accessibility widget</a> to work properly. </noscript>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3H6PWPH" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <slot />
+  <script is:inline>
+    (function () {
+      var rv = document.querySelectorAll('.reveal');
+      function show(el) { el.classList.add('in-view'); }
+      if ('IntersectionObserver' in window) {
+        var ro = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { show(en.target); ro.unobserve(en.target); } }); }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+        rv.forEach(function (el) { ro.observe(el); });
+        setTimeout(function () { rv.forEach(show); }, 2600);
+      } else { rv.forEach(show); }
+
+      document.addEventListener('click', function (e) {
+        var t = e.target.closest && e.target.closest('.nav-toggle');
+        if (t) { var nav = t.closest('header').querySelector('.nav-links'); var open = nav.classList.toggle('open'); t.style.color = open ? '#F5F4F2' : (t.getAttribute('data-base') || '#111110'); t.textContent = open ? '✕' : '☰'; return; }
+        var link = e.target.closest && e.target.closest('.nav-links a');
+        if (link) { document.querySelectorAll('.nav-links.open').forEach(function (n) { n.classList.remove('open'); }); var b = document.querySelector('.nav-toggle'); if (b) b.textContent = '☰'; }
+      });
+    })();
+  </script>
+</body>
+</html>

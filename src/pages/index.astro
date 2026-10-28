@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import { organization } from '../data/site';
+
+const description = 'A young, dynamic architecture studio designing residential, office, and commercial buildings — with an emphasis on innovation, sustainability, and minimalism.';
+const ease = 'animation:fadeUp .9s cubic-bezier(.22,.61,.36,1)';
+---
+<Base
+  title="Bellish Architects — Residential, Office & Commercial Architecture"
+  description={description}
+  path="/"
+  jsonLd={[organization]}
+  preload="/assets/lili-house-hero-1920.webp"
+  bodyClass="dark"
+  reveal={false}
+>
+  <div style="position:relative; height:100vh; width:100%; overflow:hidden; background:#1A1A18;">
+
+    <!-- FULL-BLEED HERO IMAGE -->
+    <img src="/assets/lili-house-hero-1920.webp" alt="Lili House" class="hero-img" width="1920" height="1440" fetchpriority="high" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+    <!-- gradients for legibility -->
+    <div style="position:absolute; inset:0; background:linear-gradient(to bottom, rgba(17,17,16,0.55) 0%, rgba(17,17,16,0) 26%, rgba(17,17,16,0) 50%, rgba(17,17,16,0.62) 100%);"></div>
+
+    <Header variant="hero" />
+
+    <!-- HERO CONTENT -->
+    <div style="position:absolute; left:0; right:0; bottom:0; z-index:40; padding:clamp(24px,5vw,48px);">
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:40px; flex-wrap:wrap;">
+        <div data-anim style={`${ease} forwards; max-width:920px;`}>
+          <div style="font-size:12px; letter-spacing:0.26em; text-transform:uppercase; color:rgba(245,244,242,0.66); margin-bottom:22px;">Architects Firm</div>
+          <h1 style="font-weight:800; font-size:clamp(38px,6vw,88px); line-height:0.9; letter-spacing:-0.045em; text-transform:lowercase; color:#FBFBF9;">Designing timeless spaces for those who seek the exceptional.</h1>
+        </div>
+        <a href="/projects/" class="cta" data-anim style={`${ease} .12s forwards;`}>view selected works <span style="font-size:18px;">→</span></a>
+      </div>
+      <div data-anim style={`${ease} .22s forwards; display:flex; flex-wrap:wrap; gap:6px 16px; justify-content:space-between; align-items:center; margin-top:clamp(24px,4vw,40px); padding-top:22px; border-top:1px solid rgba(245,244,242,0.16); font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:rgba(245,244,242,0.6);`}>
+        <span>01 — featured · lili house, 2025</span>
+        <span>est. 2020</span>
+      </div>
+    </div>
+
+  </div>
+</Base>
+
+<style is:global>
+  .cta { display: flex; align-items: center; gap: 14px; font-size: 15px; font-weight: 500; letter-spacing: -0.005em; color: #F5F4F2; border-bottom: 1px solid rgba(245,244,242,0.35); padding-bottom: 6px; white-space: nowrap; }
+  .cta:hover { border-bottom-color: #F5F4F2; }
+  @media (prefers-reduced-motion: reduce) { [data-anim] { animation: none !important; } }
+  @media (max-width: 768px) { .hero-img { object-position: 55% 42% !important; } }
+</style>

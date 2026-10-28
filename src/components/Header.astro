@@ -1,0 +1,20 @@
+---
+interface Props {
+  variant?: 'light' | 'hero';
+  current?: 'projects' | 'studio' | 'career' | 'contact';
+}
+const { variant = 'light', current } = Astro.props;
+const links = [
+  { key: 'projects', href: '/projects/', label: 'projects' },
+  { key: 'studio', href: '/studio/', label: 'studio' },
+  { key: 'career', href: '/career/', label: 'careers' },
+  { key: 'contact', href: '/contact/', label: 'contact' },
+];
+---
+<header class:list={['site-header', variant]}>
+  <a href="/" class="logo"><img src="/assets/logo.png" alt="Bellish" width="320" height="132"></a>
+  <button class="nav-toggle" aria-label="Menu" data-base={variant === 'hero' ? '#F5F4F2' : '#111110'}>☰</button>
+  <nav class="nav-links">
+    {links.map((l) => <a href={l.href} aria-current={l.key === current ? 'page' : undefined}>{l.label}</a>)}
+  </nav>
+</header>

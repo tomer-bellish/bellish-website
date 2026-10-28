@@ -13,6 +13,14 @@ This folder is the clone of `github.com/tomer-bellish/bellish-website` (branch `
 - Local-only branch `handoff` — the original Claude Design handoff snapshot (its `site/` lacks `CNAME` and the
   `/projects/<slug>/` redirect pages; never deploy from it).
 
+## Astro rebuild (branch `astro`, phase 3 of PLAN.md — not live yet)
+- `src/` (layouts, components, pages, data) + `public/` (assets, fonts, CNAME, robots, `/projects/<slug>/` redirects).
+  `docs/` stays on this branch as the reference until cutover; `npm run build` → `dist/`.
+- Preview: launch config `astro` (`npx astro dev --port 4321`) next to `site` (old pages on 8080).
+- `node tools/seo-parity.mjs [path…]` after `npm run build`: diffs title/meta/canonical/og/JSON-LD of docs/ vs dist/.
+  In Git Bash pass paths with `MSYS_NO_PATHCONV=1`.
+- Visual parity is checked element-by-element (position, size, font, color) old vs new at 1280px and 375px.
+
 ## How the pages are built (read before editing any `docs/**/index.html`)
 Each page is a Claude Design bundle:
 - `<main id="__static_seo">` — plain-HTML fallback for crawlers / no-JS.

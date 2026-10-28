@@ -1,0 +1,36 @@
+---
+interface Props {
+  /** First link of the Navigate column. The projects page links Home here instead of itself. */
+  first?: 'projects' | 'home';
+}
+const { first = 'projects' } = Astro.props;
+const navigate = [
+  first === 'home' ? { href: '/', label: 'Home' } : { href: '/projects/', label: 'Projects' },
+  { href: '/studio/', label: 'Studio' },
+  { href: '/career/', label: 'Careers' },
+  { href: '/contact/', label: 'Contact' },
+  { href: '/cookie-policy/', label: 'Cookie Policy' },
+  { href: '/accessibility/', label: 'Accessibility' },
+];
+---
+<footer class="site-footer">
+  <div class="top">
+    <img src="/assets/logo.png" alt="Bellish" width="320" height="132">
+    <div class="cols">
+      <div>
+        <div class="label">Navigate</div>
+        {navigate.map((l) => <a href={l.href}>{l.label}</a>)}
+      </div>
+      <div>
+        <div class="label">Connect</div>
+        <a href="https://www.instagram.com/bellisharchitects" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://wa.me/972546077729" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="mailto:tomer@bellish.co.il">Email</a>
+      </div>
+    </div>
+  </div>
+  <div class="bottom">
+    <span>© 2026 Bellish Architects. בליש אדריכלים</span>
+    <span>Architects Firm</span>
+  </div>
+</footer>
