@@ -11,11 +11,12 @@ This folder is the clone of `github.com/tomer-bellish/bellish-website`.
 - `src/data/projects.ts` — every project, in site order. Project pages, the grid, ItemList, breadcrumbs, next-project
   links and the sitemap all derive from it. `team.ts` — Studio team. `site.ts` — Organization JSON-LD.
 - `src/lib/images.ts` — srcset helper (adds the `-800.webp` variant only if the file exists).
-- `public/` — assets (images, scripts), fonts, CNAME, robots.txt, 404.html, legacy `/projects/<slug>/` redirect pages.
-- `npm run build` → `dist/`. Preview configs: `astro` (dev server, 4321), `dist` (built site, 8081), `site` (old docs/, 8080).
-- `docs/` — the old Claude Design bundles, kept **only as a rollback target** until the cleanup step in PLAN.md 3.9.
-  Don't edit it. `design-source/`, `tools/template.mjs`, `tools/seo-parity.mjs` belong to that legacy and go with it.
-- Local-only branches: `astro` (where the rebuild was done), `handoff`, `backup/site-2026-07-04`.
+- `public/` — assets (images, scripts), fonts, CNAME, robots.txt, favicon.ico, 404.html, and the static
+  `/projects/<slug>/` redirect pages. Other old-URL redirects live in `redirects` in `astro.config.mjs`.
+- `npm run build` → `dist/`. Preview configs: `astro` (dev server, 4321) and `dist` (`tools/serve.mjs`, built site, 8081).
+- `design-source/` — the original Claude Design files (`*.dc.html`), kept as a design reference only.
+- The previous bundled site (`docs/`) was removed on 29.10.2026 after the cutover; it is in git history before
+  that commit. Local-only branches: `astro` (where the rebuild was done), `handoff`, `backup/site-2026-07-04`.
 
 ## Changing content
 - New project: entry in `src/data/projects.ts` (first image = hero, `updated` = today) + WebP images in
@@ -36,10 +37,4 @@ This folder is the clone of `github.com/tomer-bellish/bellish-website`.
 GitHub Pages with Source = **GitHub Actions**: `.github/workflows/deploy.yml` builds and publishes on every push to
 `main` (about 1–2 minutes). The owner chose Claude to push from here; still confirm before each push — it goes live.
 GitHub handles HTTPS and the www redirect; custom HTTP headers are not possible.
-Rollback (while `docs/` still exists): Settings → Pages → Source "Deploy from a branch", `main` / `/docs`.
-
-## Legacy: the old bundled pages in `docs/` (rollback only)
-Each old page is a Claude Design bundle: a plain-HTML SEO fallback, base64 assets keyed by UUID, and the real page as
-one JSON-encoded string inside `<script type="__bundler/template">`, unpacked by JavaScript. If one ever has to be
-edited, use `tools/template.mjs` (`readTemplate` / `writeTemplate`, `node tools/template.mjs check`) — never
-find/replace inside the escaped string; a raw `</script>` in it breaks the page.
+Rollback: `git revert` the bad commit and push — the workflow redeploys in 1–2 minutes.

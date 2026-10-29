@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://bellish.co.il/sitemap.xml

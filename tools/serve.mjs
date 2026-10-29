@@ -1,13 +1,13 @@
-// Local preview server for docs/ (or dist/, the Astro build) — zero dependencies.
+// Local preview server for the built site (dist/) — zero dependencies.
 // Mimics GitHub Pages: directory index.html, trailing-slash redirects, custom 404.
-// Usage: node tools/serve.mjs [port] [folder=docs]
+// Usage: npm run build && node tools/serve.mjs [port] [folder=dist]
 import { createServer } from 'node:http';
 import { stat, readFile } from 'node:fs/promises';
 import { join, extname, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const ROOT = fileURLToPath(new URL(`../${process.argv[3] || 'docs'}/`, import.meta.url));
-const PORT = Number(process.argv[2] || process.env.PORT || 8080);
+const ROOT = fileURLToPath(new URL(`../${process.argv[3] || 'dist'}/`, import.meta.url));
+const PORT = Number(process.argv[2] || process.env.PORT || 8081);
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -25,23 +25,6 @@ const TYPES = {
   '.woff2': 'font/woff2',
 };
 
-// The pages load https://bellish.co.il/assets/preview-nav.js, which on any host other than
-// bellish.co.il rewrites link clicks to Claude Design files (Home.dc.html, Project.dc.html?p=slug).
-// Send those back to the real routes so navigation works locally.
-const DC_ROUTES = {
-  'Home': '/', 'Projects': '/projects/', 'Studio': '/studio/', 'Career': '/career/',
-  'Contact': '/contact/', 'CookiePolicy': '/cookie-policy/', 'Accessibility': '/accessibility/',
-};
-function dcRedirect(url) {
-  const m = url.pathname.match(/\/(\w+)\.dc\.html$/);
-  if (!m) return null;
-  if (m[1] === 'Project') {
-    const slug = url.searchParams.get('p');
-    return slug ? `/project/${slug}/` : '/project/';
-  }
-  return DC_ROUTES[m[1]] ?? null;
-}
-
 async function send(res, file, status = 200) {
   const body = await readFile(file);
   res.writeHead(status, {
@@ -53,16 +36,7 @@ async function send(res, file, status = 200) {
 
 createServer(async (req, res) => {
   const url = new URL(req.url, 'http://localhost');
-  const redirect = dcRedirect(url);
-  if (redirect) {
-    res.writeHead(302, { Location: redirect + url.hash });
-    return res.end();
-  }
-
-  // Project pages use relative 'assets/x.webp' and only prefix '/' when the host is bellish.co.il,
-  // so locally /project/<slug>/assets/x.webp must resolve to /assets/x.webp.
-  const pathname = url.pathname.replace(/^\/.+?\/(assets\/[^/]+)$/, '/$1');
-  const path = normalize(join(ROOT, decodeURIComponent(pathname)));
+  const path = normalize(join(ROOT, decodeURIComponent(url.pathname)));
   if (!path.startsWith(ROOT)) {
     res.writeHead(403);
     return res.end();
