@@ -1,50 +1,45 @@
 # Bellish Architects website (bellish.co.il)
 
 Portfolio site for בליש אדריכלים. The site itself is English-only; the owner talks to Claude in Hebrew.
-Full handoff notes (must-keep features, business data, new-project checklist): [README.md](README.md).
-Work plan and open decisions: [PLAN.md](PLAN.md).
+Handoff notes (must-keep features, business data, new-project checklist): [README.md](README.md).
+Work plan: [PLAN.md](PLAN.md). Accessibility / cookie compliance status and owner to-dos: [COMPLIANCE.md](COMPLIANCE.md).
 
-## Layout
-This folder is the clone of `github.com/tomer-bellish/bellish-website` (branch `main`).
-- `docs/` — the published site. Static files, no build step. GitHub Pages serves only this folder.
-- `design-source/` — original Claude Design files (`*.dc.html` + `support.js` runtime). Reference only.
-- `tools/serve.mjs` — local preview server (no dependencies): `node tools/serve.mjs` → http://localhost:8080/
-- `tools/template.mjs` — safe read/write of the bundled page templates (see below).
-- Local-only branch `handoff` — the original Claude Design handoff snapshot (its `site/` lacks `CNAME` and the
-  `/projects/<slug>/` redirect pages; never deploy from it).
+## Layout — Astro site on `main` (live since 29.10.2026)
+This folder is the clone of `github.com/tomer-bellish/bellish-website`.
+- `src/layouts/Base.astro` — `<head>` (SEO tags, JSON-LD, consent script), skip link, menu + scroll-reveal scripts.
+- `src/components/` — Header, Footer, ProjectBody (project page), FormScript (Formspree forms).
+- `src/data/projects.ts` — every project, in site order. Project pages, the grid, ItemList, breadcrumbs, next-project
+  links and the sitemap all derive from it. `team.ts` — Studio team. `site.ts` — Organization JSON-LD.
+- `src/lib/images.ts` — srcset helper (adds the `-800.webp` variant only if the file exists).
+- `public/` — assets (images, scripts), fonts, CNAME, robots.txt, 404.html, legacy `/projects/<slug>/` redirect pages.
+- `npm run build` → `dist/`. Preview configs: `astro` (dev server, 4321), `dist` (built site, 8081), `site` (old docs/, 8080).
+- `docs/` — the old Claude Design bundles, kept **only as a rollback target** until the cleanup step in PLAN.md 3.9.
+  Don't edit it. `design-source/`, `tools/template.mjs`, `tools/seo-parity.mjs` belong to that legacy and go with it.
+- Local-only branches: `astro` (where the rebuild was done), `handoff`, `backup/site-2026-07-04`.
 
-## Astro rebuild (branch `astro`, phase 3 of PLAN.md — not live yet)
-- `src/` (layouts, components, pages, data) + `public/` (assets, fonts, CNAME, robots, `/projects/<slug>/` redirects).
-  `docs/` stays on this branch as the reference until cutover; `npm run build` → `dist/`.
-- Preview: launch config `astro` (`npx astro dev --port 4321`) next to `site` (old pages on 8080).
-- `node tools/seo-parity.mjs [path…]` after `npm run build`: diffs title/meta/canonical/og/JSON-LD of docs/ vs dist/.
-  In Git Bash pass paths with `MSYS_NO_PATHCONV=1`.
-- Visual parity is checked element-by-element (position, size, font, color) old vs new at 1280px and 375px.
-- Consent (new site): `public/assets/cookie-consent.js` is the only place that loads Google — GA4 and Preferred
-  Sources are injected in its `loadTags()` after "Accept". GTM was removed (its container GTM-T3H6PWPH was empty). Never add a third-party script to `Base.astro`
-  directly; add it there and list it in the cookie policy. Compliance status and owner to-dos: [COMPLIANCE.md](COMPLIANCE.md).
-- Text colours must keep ≥ 4.5:1 (secondary grey on paper is `#71706B`, not the design's `#7B7A74`); axe-core
-  (`https://cdn.jsdelivr.net/npm/axe-core@4.14.0/axe.min.js`) should report 0 violations on every page.
+## Changing content
+- New project: entry in `src/data/projects.ts` (first image = hero, `updated` = today) + WebP images in
+  `public/assets/`, ideally with an 800px `-800.webp` variant for each. Nothing else to edit.
+- Team: `src/data/team.ts`. Contact details: `src/data/site.ts` (JSON-LD), the contact page and the footer.
 
-## How the pages are built (read before editing any `docs/**/index.html`)
-Each page is a Claude Design bundle:
-- `<main id="__static_seo">` — plain-HTML fallback for crawlers / no-JS.
-- `<script type="__bundler/manifest">` — base64 assets (incl. the ~160 KB design runtime) keyed by UUID.
-- `<script type="__bundler/template">` — the real page as one JSON-encoded string, unpacked at runtime.
-Editing the template: parse the JSON string, edit, re-encode with `<` written as `\u003C`. A raw `</script>`
-inside the string breaks the page. Never hand-edit the escaped string with find/replace — use `tools/template.mjs`
-(`readTemplate` / `writeTemplate`; refuses pages that don't round-trip). `node tools/template.mjs check` after any edit.
-Project data (titles, text, galleries) is duplicated in every `docs/project/*/index.html` — change all 12 together.
-
-The rendered pages load images and scripts from `https://bellish.co.il/assets/...` (absolute URLs),
-so the local preview shows the **live** assets — a new image only appears after it is deployed.
-`assets/preview-nav.js` rewrites link clicks to `*.dc.html` on non-production hosts; `serve.mjs` redirects those
-back to the real routes.
+## Rules
+- Consent: `public/assets/cookie-consent.js` is the only place that loads Google — GA4 and Preferred Sources are
+  injected in its `loadTags()` after "Accept". GTM was removed (its container GTM-T3H6PWPH was empty). Never add a
+  third-party script to `Base.astro` directly; add it there and list it in the cookie policy.
+- Text colours must keep ≥ 4.5:1 (secondary grey on paper is `#71706B`, not the design's `#7B7A74`); UI borders ≥ 3:1.
+  axe-core (`https://cdn.jsdelivr.net/npm/axe-core@4.14.0/axe.min.js`) should report 0 violations on every page.
+- Keep every URL, meta tag, JSON-LD block and asset path stable — SEO depends on them.
+- The owner sometimes runs several Claude sessions on this folder at once. Before committing, check `git status` /
+  `git diff` for changes you did not make and commit only your own (stage partial files from a HEAD-based copy).
 
 ## Deploy
-Hosted on **GitHub Pages**, source `main` → `/docs`, custom domain via `docs/CNAME`. Every push to `main` goes live.
-Owner pushes with GitHub Desktop. Anything outside `docs/` is never published.
-GitHub handles HTTPS/www redirects and serves `404.html`; custom HTTP headers are not possible (no `.htaccess`).
-Owner chose Claude to push from here; still confirm with the owner before each push, since every push goes live.
-Keep every URL, meta tag, JSON-LD block and asset path identical — SEO depends on them.
-When adding/removing pages, update `docs/sitemap.xml` (one `<url>` per page, no duplicates).
+GitHub Pages with Source = **GitHub Actions**: `.github/workflows/deploy.yml` builds and publishes on every push to
+`main` (about 1–2 minutes). The owner chose Claude to push from here; still confirm before each push — it goes live.
+GitHub handles HTTPS and the www redirect; custom HTTP headers are not possible.
+Rollback (while `docs/` still exists): Settings → Pages → Source "Deploy from a branch", `main` / `/docs`.
+
+## Legacy: the old bundled pages in `docs/` (rollback only)
+Each old page is a Claude Design bundle: a plain-HTML SEO fallback, base64 assets keyed by UUID, and the real page as
+one JSON-encoded string inside `<script type="__bundler/template">`, unpacked by JavaScript. If one ever has to be
+edited, use `tools/template.mjs` (`readTemplate` / `writeTemplate`, `node tools/template.mjs check`) — never
+find/replace inside the escaped string; a raw `</script>` in it breaks the page.

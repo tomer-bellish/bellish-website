@@ -1,13 +1,16 @@
 # Handoff: Bellish Architects website (bellish.co.il)
 
 ## Overview
-Portfolio site for Bellish Architects (בליש אדריכלים), English-only. Live at https://bellish.co.il, hosted on GitHub Pages from `main` → `/docs` (GitHub Desktop push).
+Portfolio site for Bellish Architects (בליש אדריכלים), English-only. Live at https://bellish.co.il — an Astro static site built from `src/` and published to GitHub Pages by GitHub Actions on every push to `main` (since 29 October 2026).
 
 ## What's in this folder
-- `docs/` — **the live production site, exactly as deployed.** Static HTML, no build step. This is the source of truth.
+- `src/`, `public/` — the site (see CLAUDE.md for the layout and how to add a project).
+- `docs/` — the previous Claude Design bundles, kept only as a rollback target until they are removed.
 - `design-source/` — the original design files (`*.dc.html`) the pages were generated from. Reference only — they show layout, copy, data and styling. `support.js` is the design runtime they need to open in a browser.
 
-## Recommended path in Claude Code
+## History: the rebuild recommendation (done)
+That rebuild is done (Astro, phase 3 of PLAN.md, live since 29.10.2026). Every URL, meta tag, schema block and asset path was kept and each page was checked against the old one. The original note follows.
+
 The pages in `docs/` are self-contained bundles: each `index.html` holds a static SEO `<main id="__static_seo">` block plus the full page template as an escaped JSON string inside `<script type="__bundler/template">`. Editing that string by hand is fragile (an unescaped `</script>` inside it breaks the page — this happened once).
 
 Options:
