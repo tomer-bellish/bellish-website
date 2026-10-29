@@ -1,0 +1,90 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://bellish.co.il/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Accessibility Statement",
+        "item": "https://bellish.co.il/accessibility/"
+      }
+    ]
+  }
+];
+---
+<Base
+  title="Accessibility Statement — Bellish Architects"
+  description="Accessibility statement for bellish.co.il — compliance with Israeli Standard 5568 (WCAG 2.0 AA), the adjustments made, known limitations and how to contact us."
+  path="/accessibility/"
+  jsonLd={jsonLd}
+>
+  <div style="background:#F5F4F2; color:#111110; min-height:100vh; display:flex; flex-direction:column;">
+    <Header />
+
+  <!-- CONTENT -->
+  <section style="padding:clamp(64px,11vw,96px) clamp(20px,5vw,48px) clamp(72px,10vw,120px); max-width:900px; margin:0 auto; width:100%; flex:1;">
+    <div style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color:#7B7A74; margin-bottom:26px;">Legal · Last updated 17 September 2026</div>
+    <h1 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(40px,6vw,84px); line-height:0.9; letter-spacing:-0.045em; text-transform:lowercase; margin-bottom:24px;">accessibility statement</h1>
+    <p style="font-size:16px; line-height:1.75; color:#3A3A37; max-width:640px; margin-bottom:56px;">Bellish Architects believes good design serves everyone. We are committed to making bellish.co.il usable by people with disabilities, and to treating every visitor and client equally, with dignity and respect.</p>
+
+    <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.03em; text-transform:lowercase; border-top:1px solid #D8D7D2; padding-top:28px; margin-bottom:24px;">the standard we follow</h2>
+    <div style="display:flex; flex-direction:column; gap:14px; font-size:15px; line-height:1.75; color:#3A3A37; max-width:640px; margin-bottom:56px;">
+      <p>This website is designed to comply with Israeli Standard 5568 — "Web Content Accessibility Guidelines" — at level AA, as required by Regulation 35 of the Equal Rights for Persons with Disabilities (Service Accessibility Adjustments) Regulations, 5773-2013, enacted under the Equal Rights for Persons with Disabilities Law, 5758-1998. Israeli Standard 5568 adopts the international WCAG 2.0 guidelines; where practical we also apply the newer WCAG 2.1 AA criteria.</p>
+    </div>
+
+    <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.03em; text-transform:lowercase; border-top:1px solid #D8D7D2; padding-top:28px; margin-bottom:24px;">accessibility adjustments on this site</h2>
+    <div style="display:flex; flex-direction:column; gap:14px; font-size:15px; line-height:1.75; color:#3A3A37; max-width:640px; margin-bottom:56px;">
+      <p><strong>Structure:</strong> a consistent heading hierarchy, landmarks and a logical reading order on every page, so screen readers can navigate by heading and region.</p>
+      <p><strong>Images:</strong> every project photograph and rendering carries a text alternative describing the project, view and location.</p>
+      <p><strong>Keyboard:</strong> all navigation, menus, galleries and the image lightbox are operable with the keyboard alone (Tab, Enter, arrow keys, Esc), with a visible focus indicator.</p>
+      <p><strong>Contrast and text:</strong> body text meets a contrast ratio of at least 4.5:1; text can be enlarged to 200% without loss of content, and the layout adapts to any screen size and orientation.</p>
+      <p><strong>Touch and motion:</strong> interactive elements are at least 44×44 px, and animation can be stopped via the accessibility toolbar.</p>
+      <p><strong>Consent banner:</strong> the cookie banner is keyboard-accessible and can be dismissed without accepting.</p>
+    </div>
+
+    <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.03em; text-transform:lowercase; border-top:1px solid #D8D7D2; padding-top:28px; margin-bottom:24px;">accessibility toolbar</h2>
+    <div style="display:flex; flex-direction:column; gap:14px; font-size:15px; line-height:1.75; color:#3A3A37; max-width:640px; margin-bottom:56px;">
+      <p>The toolbar at the bottom-right of every page (accessibility icon) lets you adjust the site to your needs: high and inverted contrast, saturation and greyscale; text size, letter and line spacing, readable fonts and text alignment; highlighting of links and headings; a large cursor, reading guide and reading mask; stopping animations; hiding images; a dictionary; text-to-speech; and helpers for screen-reader and keyboard users. Your settings are saved in your browser for future visits.</p>
+    </div>
+
+    <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.03em; text-transform:lowercase; border-top:1px solid #D8D7D2; padding-top:28px; margin-bottom:24px;">compatibility</h2>
+    <div style="display:flex; flex-direction:column; gap:14px; font-size:15px; line-height:1.75; color:#3A3A37; max-width:640px; margin-bottom:56px;">
+      <p>The site is tested with current versions of Chrome, Safari, Firefox and Edge on desktop and mobile, and with the NVDA, VoiceOver and TalkBack screen readers.</p>
+    </div>
+
+    <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.03em; text-transform:lowercase; border-top:1px solid #D8D7D2; padding-top:28px; margin-bottom:24px;">known limitations</h2>
+    <div style="display:flex; flex-direction:column; gap:14px; font-size:15px; line-height:1.75; color:#3A3A37; max-width:640px; margin-bottom:56px;">
+      <p>Architectural drawings and renderings are described in words but cannot convey every visual detail; we are happy to explain any project by phone or in person. Content hosted by third parties — Instagram, WhatsApp and Google services — is governed by those providers' own accessibility practices. If you find anything on the site that does not work for you, please tell us and we will fix it.</p>
+    </div>
+
+    <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.03em; text-transform:lowercase; border-top:1px solid #D8D7D2; padding-top:28px; margin-bottom:24px;">our offices</h2>
+    <div style="display:flex; flex-direction:column; gap:14px; font-size:15px; line-height:1.75; color:#3A3A37; max-width:640px; margin-bottom:56px;">
+      <p>We meet clients at our studios in Tiberias (Tarshish 4, Kidmat HaGalil) and Ramat HaSharon (Big Fashion Tower, Floor 5), or at any location convenient for you. Please let us know in advance of any accessibility needs for a meeting and we will make the appropriate arrangements.</p>
+    </div>
+
+    <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.03em; text-transform:lowercase; border-top:1px solid #D8D7D2; padding-top:28px; margin-bottom:24px;">accessibility contact</h2>
+    <div style="display:flex; flex-direction:column; gap:14px; font-size:15px; line-height:1.75; color:#3A3A37; max-width:640px; margin-bottom:56px;">
+      <p>Requests, feedback and complaints regarding accessibility of the website or our services:</p>
+      <p><strong>Tomer Bellish</strong>, Architect &amp; Partner<br>Email: <a href="mailto:office@bellish.co.il" style="text-decoration:underline; text-underline-offset:3px;">office@bellish.co.il</a><br>Phone: <a href="tel:+97246029585" style="text-decoration:underline; text-underline-offset:3px;">04-602-9585</a></p>
+      <p>We aim to reply within three business days and to resolve issues as quickly as possible. If you are not satisfied with our response, you may contact the Commission for Equal Rights of Persons with Disabilities at the Ministry of Justice.</p>
+    </div>
+
+    <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.03em; text-transform:lowercase; border-top:1px solid #D8D7D2; padding-top:28px; margin-bottom:24px;">about this statement</h2>
+    <p style="font-size:15px; line-height:1.75; color:#3A3A37; max-width:640px;">This statement was last reviewed on 17 September 2026. We review it at least once a year and whenever the website changes significantly.</p>
+  </section>
+
+    <Footer />
+  </div>
+</Base>

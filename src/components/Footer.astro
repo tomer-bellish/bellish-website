@@ -1,14 +1,15 @@
 ---
 interface Props {
-  /** First link of the Navigate column. The projects page links Home here instead of itself. */
-  first?: 'projects' | 'home';
+  /** The projects and contact pages link Home in place of their own entry. */
+  homeInsteadOf?: 'projects' | 'contact';
 }
-const { first = 'projects' } = Astro.props;
+const { homeInsteadOf } = Astro.props;
+const home = { href: '/', label: 'Home' };
 const navigate = [
-  first === 'home' ? { href: '/', label: 'Home' } : { href: '/projects/', label: 'Projects' },
+  homeInsteadOf === 'projects' ? home : { href: '/projects/', label: 'Projects' },
   { href: '/studio/', label: 'Studio' },
   { href: '/career/', label: 'Careers' },
-  { href: '/contact/', label: 'Contact' },
+  homeInsteadOf === 'contact' ? home : { href: '/contact/', label: 'Contact' },
   { href: '/cookie-policy/', label: 'Cookie Policy' },
   { href: '/accessibility/', label: 'Accessibility' },
 ];

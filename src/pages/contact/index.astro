@@ -1,0 +1,198 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import FormScript from '../../components/FormScript.astro';
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://bellish.co.il/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Contact",
+        "item": "https://bellish.co.il/contact/"
+      }
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://bellish.co.il/#org",
+    "name": "Bellish Architects",
+    "url": "https://bellish.co.il/",
+    "email": "tomer@bellish.co.il",
+    "telephone": "+972546077729",
+    "image": "https://bellish.co.il/assets/lili-house-hero-1920.webp",
+    "logo": "https://bellish.co.il/assets/logo.png",
+    "sameAs": [
+      "https://www.instagram.com/bellisharchitects"
+    ],
+    "department": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://bellish.co.il/#tiberias",
+        "name": "Bellish Architects — Tiberias",
+        "parentOrganization": {
+          "@id": "https://bellish.co.il/#org"
+        },
+        "url": "https://bellish.co.il/contact/",
+        "email": "tomer@bellish.co.il",
+        "telephone": "+97246029585",
+        "image": "https://bellish.co.il/assets/lili-house-hero-1920.webp",
+        "logo": "https://bellish.co.il/assets/logo.png",
+        "priceRange": "$$$",
+        "sameAs": [
+          "https://www.instagram.com/bellisharchitects"
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Tarshish 4, Kidmat HaGalil, Floor 1",
+          "addressLocality": "Tiberias",
+          "addressCountry": "IL"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Sunday",
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday"
+            ],
+            "opens": "09:00",
+            "closes": "18:00"
+          }
+        ]
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://bellish.co.il/#telaviv",
+        "name": "Bellish Architects — Tel Aviv",
+        "parentOrganization": {
+          "@id": "https://bellish.co.il/#org"
+        },
+        "url": "https://bellish.co.il/contact/",
+        "email": "tomer@bellish.co.il",
+        "telephone": "+972546077729",
+        "image": "https://bellish.co.il/assets/lili-house-hero-1920.webp",
+        "logo": "https://bellish.co.il/assets/logo.png",
+        "priceRange": "$$$",
+        "sameAs": [
+          "https://www.instagram.com/bellisharchitects"
+        ],
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Glilot, Big Fashion Tower, Floor 5",
+          "addressLocality": "Tel Aviv",
+          "addressCountry": "IL"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Sunday",
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday"
+            ],
+            "opens": "09:00",
+            "closes": "18:00"
+          }
+        ]
+      }
+    ]
+  }
+];
+---
+<Base
+  title="Contact — Bellish Architects"
+  description="Get in touch with Bellish Architects — offices in Tiberias and Tel Aviv. Start a project with us."
+  path="/contact/"
+  jsonLd={jsonLd}
+>
+  <div style="background:#F5F4F2; color:#111110; min-height:100vh; display:flex; flex-direction:column;">
+    <Header current="contact" />
+
+  <section class="reveal" style="flex:1; padding:clamp(64px,11vw,96px) clamp(20px,5vw,48px) 120px; max-width:1320px; margin:0 auto; width:100%;">
+    <div style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color:#7B7A74; margin-bottom:26px;">Start a project</div>
+    <h1 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(44px,7.4vw,116px); line-height:0.88; letter-spacing:-0.045em; text-transform:lowercase; margin-bottom:72px;">let's build something<br>made to last.</h1>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr)); gap:48px 72px; align-items:start;">
+
+      <!-- details -->
+      <div>
+        <div style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color:#7B7A74; margin-bottom:18px;">Studio</div>
+        <a class="h-contact-1" href="mailto:tomer@bellish.co.il" style="display:block; font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.03em; text-transform:lowercase; border-bottom:1px solid #B9B8B2; padding-bottom:8px; width:fit-content; margin-bottom:18px;">tomer@bellish.co.il</a>
+        <a class="h-contact-2" href="tel:+972546077729" style="display:block; font-size:16px; color:#3A3A37; margin-bottom:40px; width:fit-content;">054-607-7729</a>
+        <div style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:#9A998F; margin-bottom:16px;">Locations</div>
+        <div style="display:flex; flex-wrap:wrap; gap:28px 44px; font-size:15px; line-height:1.55; color:#3A3A37;">
+          <div style="min-width:150px;">
+            <div style="font-family:'Archivo',sans-serif; font-weight:700; font-size:14px; letter-spacing:0.04em; text-transform:uppercase; color:#111110; margin-bottom:8px;">Tiberias</div>
+            <div>Tarshish 4</div>
+            <div>Kidmat HaGalil</div>
+            <div>Floor 1</div>
+            <div style="margin-top:6px; color:#56554F;">04-602-9585</div>
+            <a class="h-contact-3" href="https://www.google.com/maps/search/?api=1&amp;query=Tarshish+4+Kidmat+HaGalil" target="_blank" rel="noopener" data-location="Tiberias" style="display:inline-block; margin-top:10px; font-size:12px; letter-spacing:0.02em; color:#56554F; border-bottom:1px solid #CFCEC9; padding-bottom:2px;">Directions ↗</a>
+          </div>
+          <div style="min-width:150px;">
+            <div style="font-family:'Archivo',sans-serif; font-weight:700; font-size:14px; letter-spacing:0.04em; text-transform:uppercase; color:#111110; margin-bottom:8px;">Tel Aviv</div>
+            <div>Glilot</div>
+            <div>Big Fashion Tower</div>
+            <div>Floor 5</div>
+            <div style="margin-top:6px; color:#56554F;">054-607-7729</div>
+            <a class="h-contact-3" href="https://www.google.com/maps/search/?api=1&amp;query=Big+Fashion+Tower+Glilot" target="_blank" rel="noopener" data-location="Tel Aviv" style="display:inline-block; margin-top:10px; font-size:12px; letter-spacing:0.02em; color:#56554F; border-bottom:1px solid #CFCEC9; padding-bottom:2px;">Directions ↗</a>
+          </div>
+        </div>
+        <div style="margin-top:24px; color:#7B7A74; font-size:15px;">Sun–Thu · 09:00–18:00</div>
+        <div style="display:flex; gap:24px; margin-top:40px; font-size:13px; color:#56554F;">
+          <a class="h-contact-1" href="https://www.instagram.com/bellisharchitects" target="_blank" rel="noopener" style="border-bottom:1px solid #CFCEC9; padding-bottom:2px;">Instagram</a>
+          <a class="h-contact-1" href="https://wa.me/972546077729" target="_blank" rel="noopener" style="border-bottom:1px solid #CFCEC9; padding-bottom:2px;">WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- form -->
+      <div id="contact-sent" hidden style="display:flex; flex-direction:column; justify-content:center; min-height:280px;">
+          <div style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(28px,3.2vw,44px); letter-spacing:-0.04em; text-transform:lowercase; margin-bottom:16px;">thank you.</div>
+          <p style="font-size:16px; line-height:1.7; color:#56554F; max-width:440px;">We've received your enquiry and will be in touch shortly. For anything urgent, reach us at tomer@bellish.co.il.</p>
+        </div>
+
+      <form action="https://formspree.io/f/xnjkbwgo" method="POST" data-endpoint="https://formspree.io/f/xnjkbwgo" data-sent="contact-sent" data-error-msg="Something went wrong — please email us directly at tomer@bellish.co.il." style="display:flex; flex-direction:column; gap:0;">
+        <input type="hidden" name="_subject" value="New enquiry — bellish.co.il">
+        <label for="contact-f1" style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#7B7A74; margin-bottom:10px;">Name</label>
+        <input id="contact-f1" name="name" type="text" placeholder="Your name" required="required" style="background:transparent; border:none; border-bottom:1px solid #CFCEC9; padding:10px 0 14px; font-size:17px; color:#111110; margin-bottom:36px;">
+        <label for="contact-f2" style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#7B7A74; margin-bottom:10px;">Email</label>
+        <input id="contact-f2" name="email" type="email" placeholder="you@email.com" required="required" style="background:transparent; border:none; border-bottom:1px solid #CFCEC9; padding:10px 0 14px; font-size:17px; color:#111110; margin-bottom:36px;">
+        <label for="contact-f3" style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#7B7A74; margin-bottom:10px;">About the project</label>
+        <textarea id="contact-f3" name="message" rows="4" placeholder="Site, programme, timeline — a few lines is plenty." style="background:transparent; border:none; border-bottom:1px solid #CFCEC9; padding:10px 0 14px; font-size:17px; color:#111110; resize:vertical; margin-bottom:40px;"></textarea>
+        <button class="h-contact-4" type="submit" style="align-self:flex-start; cursor:pointer; font-family:'Archivo',sans-serif; font-weight:800; font-size:15px; letter-spacing:-0.01em; text-transform:lowercase; color:#F5F4F2; background:#111110; border:none; padding:16px 32px; border-radius:999px; transition:opacity .25s ease;">send enquiry</button>
+        <div style="min-height:18px; margin-top:18px; font-size:13.5px; color:#B0402F;" data-error role="status" aria-live="polite"></div>
+      </form>
+
+    </div>
+  </section>
+
+    <Footer homeInsteadOf="contact" />
+  </div>
+</Base>
+<FormScript />
+
+<style is:global>
+.h-contact-1:hover { border-bottom-color:#111110 !important; }
+.h-contact-2:hover { color:#111110 !important; }
+.h-contact-3:hover { color:#111110 !important; border-bottom-color:#111110 !important; }
+.h-contact-4:hover { opacity:0.82 !important; }
+input, textarea { font-family: 'Archivo', sans-serif; }
+    input::placeholder, textarea::placeholder { color: #A3A29C; }
+    input:focus, textarea:focus { outline: none; border-color: #111110 !important; }
+</style>

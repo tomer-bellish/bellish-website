@@ -1,0 +1,240 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://bellish.co.il/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Studio",
+        "item": "https://bellish.co.il/studio/"
+      }
+    ]
+  }
+];
+---
+<Base
+  title="Studio — Bellish Architects"
+  description="Meet Bellish Architects — a boutique studio of ten, working across residential, office, and commercial architecture with care and a long attention span."
+  path="/studio/"
+  jsonLd={jsonLd}
+>
+  <div style="background:#F5F4F2; color:#111110; min-height:100vh;">
+    <Header current="studio" />
+
+  <!-- PAGE INTRO -->
+  <section class="reveal" style="padding:clamp(64px,11vw,96px) clamp(20px,5vw,48px) 88px; max-width:1320px; margin:0 auto;">
+    <div style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color:#7B7A74; margin-bottom:26px;">The Studio</div>
+    <h1 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(44px,7vw,108px); line-height:0.9; letter-spacing:-0.045em; text-transform:lowercase; margin-bottom:48px;">b studio</h1>
+    <p style="font-family:'Archivo',sans-serif; font-weight:500; font-size:clamp(22px,2.8vw,36px); line-height:1.32; letter-spacing:-0.02em; max-width:980px; text-wrap:pretty;">A young, dynamic architecture studio designing residential, office, and mix-uses buildings — with an emphasis on innovation, sustainability, and minimalism.</p>
+  </section>
+
+  <!-- STUDIO STATEMENT (dark, no image) -->
+  <section class="reveal" style="background:#111110; color:#F0EFEB; padding:clamp(72px,12vw,128px) clamp(20px,5vw,48px);">
+    <div style="max-width:1320px; margin:0 auto;">
+      <div style="display:flex; justify-content:space-between; align-items:baseline; gap:24px; flex-wrap:wrap; font-size:11.5px; letter-spacing:0.2em; text-transform:uppercase; color:#86857F; margin-bottom:48px;">
+        <span>The Studio</span>
+        <span>Est. 2020 — Israel</span>
+      </div>
+      <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(34px,5.4vw,80px); line-height:0.98; letter-spacing:-0.045em; text-transform:lowercase; max-width:15ch;">a small practice, with a long attention span.</h2>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:40px 72px; margin-top:clamp(48px,7vw,80px); align-items:start;">
+        <p style="font-family:'Archivo',sans-serif; font-size:16px; line-height:1.75; color:#B6B5AF; max-width:480px;">We believe quality architecture not only enhances quality of life but also contributes to the environment. Our team invests deep thought into every project, using advanced technologies and sustainable materials to create solutions that blend aesthetics with functionality — spaces that encourage positive experiences and invite communities to thrive within them.</p>
+
+        <!-- discipline index -->
+        <div>
+          <div style="font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#5C5B57; margin-bottom:8px;">(what we do)</div>
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; border-top:1px solid #262624; padding:20px 0;">
+            <span style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(20px,2.2vw,28px); letter-spacing:-0.03em; text-transform:lowercase;">residential buildings</span>
+            <span style="font-family:monospace; font-size:12px; color:#5C5B57;">01</span>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; border-top:1px solid #262624; padding:20px 0;">
+            <span style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(20px,2.2vw,28px); letter-spacing:-0.03em; text-transform:lowercase;">urban planning &amp; master plans</span>
+            <span style="font-family:monospace; font-size:12px; color:#5C5B57;">02</span>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; border-top:1px solid #262624; padding:20px 0;">
+            <span style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(20px,2.2vw,28px); letter-spacing:-0.03em; text-transform:lowercase;">commercial &amp; hospitality</span>
+            <span style="font-family:monospace; font-size:12px; color:#5C5B57;">03</span>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; border-top:1px solid #262624; border-bottom:1px solid #262624; padding:20px 0;">
+            <span style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(20px,2.2vw,28px); letter-spacing:-0.03em; text-transform:lowercase;">private houses</span>
+            <span style="font-family:monospace; font-size:12px; color:#5C5B57;">04</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- stats -->
+      <div style="display:flex; gap:80px; margin-top:88px; padding-top:36px; border-top:1px solid #262624; flex-wrap:wrap;">
+        <div><div style="font-family:'Archivo',sans-serif; font-size:clamp(44px,5vw,64px); font-weight:800; letter-spacing:-0.04em; line-height:1;">120+</div><div style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#86857F; margin-top:10px;">Completed projects</div></div>
+        <div><div style="font-family:'Archivo',sans-serif; font-size:clamp(44px,5vw,64px); font-weight:800; letter-spacing:-0.04em; line-height:1;">08</div><div style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#86857F; margin-top:10px;">Team members</div></div>
+        <div><div style="font-family:'Archivo',sans-serif; font-size:clamp(44px,5vw,64px); font-weight:800; letter-spacing:-0.04em; line-height:1;">02</div><div style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#86857F; margin-top:10px;">Branches</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="reveal" style="padding:clamp(64px,11vw,120px) clamp(20px,5vw,48px); max-width:1320px; margin:0 auto;">
+    <div style="display:flex; align-items:baseline; justify-content:space-between; border-bottom:1px solid #D8D7D2; padding-bottom:18px; margin-bottom:56px; gap:24px; flex-wrap:wrap;">
+      <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(28px,3vw,44px); letter-spacing:-0.035em; text-transform:lowercase;">our team</h2>
+      <span style="font-size:11.5px; letter-spacing:0.14em; text-transform:uppercase; color:#7B7A74;">Israel</span>
+    </div>
+    <div class="team-grid" style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:40px;">
+
+      <!-- member -->
+      <div>
+        <div style="position:relative; aspect-ratio:4/5; overflow:hidden; background:#E7E6E2; background-image:repeating-linear-gradient(135deg,#DEDDD8 0 1px,transparent 1px 13px); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
+          <img src="/assets/team-tomer-bellish.webp" alt="Portrait of Tomer Bellish, Bellish Architects" loading="lazy" width="900" height="1125" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" />
+        </div>
+        <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:22px; letter-spacing:-0.03em; text-transform:lowercase;">tomer bellish</h3>
+        <div style="font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color:#7B7A74; margin-top:8px;">Founder &amp; Architect</div>
+      </div>
+
+      <!-- member -->
+      <div>
+        <div style="position:relative; aspect-ratio:4/5; overflow:hidden; background:#E7E6E2; background-image:repeating-linear-gradient(135deg,#DEDDD8 0 1px,transparent 1px 13px); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
+          <img src="/assets/team-jenine-bellish.webp" alt="Portrait of Jenine Bellish, Bellish Architects" loading="lazy" width="900" height="1125" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" />
+        </div>
+        <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:22px; letter-spacing:-0.03em; text-transform:lowercase;">jenine bellish</h3>
+        <div style="font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color:#7B7A74; margin-top:8px;">Founder &amp; Urban Planner</div>
+      </div>
+
+      <!-- member -->
+      <div>
+        <div style="position:relative; aspect-ratio:4/5; overflow:hidden; background:#E7E6E2; background-image:repeating-linear-gradient(135deg,#DEDDD8 0 1px,transparent 1px 13px); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
+          <img src="/assets/team-placeholder.webp" alt="" aria-hidden="true" loading="lazy" width="900" height="1125" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" />
+        </div>
+        <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:22px; letter-spacing:-0.03em; text-transform:lowercase;">carmit ezra</h3>
+        <div style="font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color:#7B7A74; margin-top:8px;">Architecture Practical Engineer</div>
+      </div>
+
+      <!-- member -->
+      <div>
+        <div style="position:relative; aspect-ratio:4/5; overflow:hidden; background:#E7E6E2; background-image:repeating-linear-gradient(135deg,#DEDDD8 0 1px,transparent 1px 13px); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
+          <img src="/assets/team-placeholder.webp" alt="" aria-hidden="true" loading="lazy" width="900" height="1125" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" />
+        </div>
+        <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:22px; letter-spacing:-0.03em; text-transform:lowercase;">adi sabo</h3>
+        <div style="font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color:#7B7A74; margin-top:8px;">Architecture Practical Engineer</div>
+      </div>
+
+      <!-- member -->
+      <div>
+        <div style="position:relative; aspect-ratio:4/5; overflow:hidden; background:#E7E6E2; background-image:repeating-linear-gradient(135deg,#DEDDD8 0 1px,transparent 1px 13px); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
+          <img src="/assets/team-placeholder.webp" alt="" aria-hidden="true" loading="lazy" width="900" height="1125" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" />
+        </div>
+        <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:22px; letter-spacing:-0.03em; text-transform:lowercase;">yarden ben hamo</h3>
+        <div style="font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color:#7B7A74; margin-top:8px;">Architecture Practical Engineer</div>
+      </div>
+
+      <!-- member -->
+      <div>
+        <div style="position:relative; aspect-ratio:4/5; overflow:hidden; background:#E7E6E2; background-image:repeating-linear-gradient(135deg,#DEDDD8 0 1px,transparent 1px 13px); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
+          <img src="/assets/team-efrat-yakuti.webp" alt="Portrait of Efrat Yakuti, Bellish Architects" loading="lazy" width="900" height="1125" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" />
+        </div>
+        <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:22px; letter-spacing:-0.03em; text-transform:lowercase;">efrat yakuti</h3>
+        <div style="font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color:#7B7A74; margin-top:8px;">Architecture Practical Engineer</div>
+      </div>
+
+      <!-- member -->
+      <div>
+        <div style="position:relative; aspect-ratio:4/5; overflow:hidden; background:#E7E6E2; background-image:repeating-linear-gradient(135deg,#DEDDD8 0 1px,transparent 1px 13px); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
+          <img src="/assets/team-placeholder.webp" alt="" aria-hidden="true" loading="lazy" width="900" height="1125" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" />
+        </div>
+        <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:22px; letter-spacing:-0.03em; text-transform:lowercase;">hadar hatav</h3>
+        <div style="font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color:#7B7A74; margin-top:8px;">Architecture Practical Engineer</div>
+      </div>
+
+      <!-- member -->
+      <div>
+        <div style="position:relative; aspect-ratio:4/5; overflow:hidden; background:#E7E6E2; background-image:repeating-linear-gradient(135deg,#DEDDD8 0 1px,transparent 1px 13px); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
+          <img src="/assets/team-placeholder.webp" alt="" aria-hidden="true" loading="lazy" width="900" height="1125" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" />
+        </div>
+        <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:22px; letter-spacing:-0.03em; text-transform:lowercase;">astar ben harush</h3>
+        <div style="font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color:#7B7A74; margin-top:8px;">Financial Manager</div>
+      </div>
+
+      <!-- member -->
+      <div>
+        <div style="position:relative; aspect-ratio:4/5; overflow:hidden; background:#E7E6E2; margin-bottom:20px;">
+          <img src="/assets/team-alfi.jpg" alt="Alfi — Security" width="1122" height="1402" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
+        </div>
+        <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:22px; letter-spacing:-0.03em; text-transform:lowercase;">alfi</h3>
+        <div style="font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color:#7B7A74; margin-top:8px;">Security</div>
+      </div>
+
+      <!-- join card -->
+      <a href="/career/" class="joincard h-studio-1" style="display:flex; flex-direction:column; justify-content:space-between; aspect-ratio:4/5; padding:28px; background:#111110; color:#F0EFEB;">
+        <div style="font-size:11.5px; letter-spacing:0.14em; text-transform:uppercase; color:#86857F;">Open positions</div>
+        <div>
+          <div style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(24px,2.2vw,32px); line-height:0.98; letter-spacing:-0.035em; text-transform:lowercase;">join the<br>studio</div>
+          <div style="display:flex; align-items:center; gap:10px; margin-top:20px; font-size:13px; font-weight:500;">see careers <span class="ja" style="font-size:16px; transition:transform .3s ease;">→</span></div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- APPROACH -->
+  <section class="reveal" style="padding:clamp(64px,11vw,120px) clamp(20px,5vw,48px) 40px; max-width:1320px; margin:0 auto;">
+    <div style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color:#7B7A74; margin-bottom:56px;">How we work</div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr)); gap:48px;">
+      <div style="border-top:1px solid #111110; padding-top:24px;">
+        <div style="font-family:monospace; font-size:12px; color:#A3A29C; margin-bottom:20px;">01</div>
+        <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:24px; letter-spacing:-0.025em; text-transform:lowercase; margin-bottom:14px;">listen to the site</h3>
+        <p style="font-size:14.5px; line-height:1.65; color:#56554F;">Every design begins on the ground — orientation, light, slope, the neighbours, the view you keep and the one you frame.</p>
+      </div>
+      <div style="border-top:1px solid #111110; padding-top:24px;">
+        <div style="font-family:monospace; font-size:12px; color:#A3A29C; margin-bottom:20px;">02</div>
+        <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:24px; letter-spacing:-0.025em; text-transform:lowercase; margin-bottom:14px;">design in dialogue</h3>
+        <p style="font-size:14.5px; line-height:1.65; color:#56554F;">We work closely with each client through models and drawings, refining the plan until it fits the life it is meant to hold.</p>
+      </div>
+      <div style="border-top:1px solid #111110; padding-top:24px;">
+        <div style="font-family:monospace; font-size:12px; color:#A3A29C; margin-bottom:20px;">03</div>
+        <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:24px; letter-spacing:-0.025em; text-transform:lowercase; margin-bottom:14px;">build with care</h3>
+        <p style="font-size:14.5px; line-height:1.65; color:#56554F;">Honest materials, resolved details, and a presence on site through construction so the finished house is true to the drawing.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AWARDS -->
+
+  <!-- CTA strip -->
+  <section class="reveal" style="border-top:1px solid #D8D7D2; padding:clamp(64px,10vw,100px) clamp(20px,5vw,48px);">
+    <div style="max-width:1320px; margin:0 auto; display:flex; align-items:end; justify-content:space-between; gap:40px; flex-wrap:wrap;">
+      <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(32px,4.6vw,64px); line-height:0.96; letter-spacing:-0.04em; text-transform:lowercase;">have a project in mind?</h2>
+      <a class="h-studio-2" href="/contact/" style="display:flex; align-items:center; gap:12px; font-family:'Archivo',sans-serif; font-size:15px; font-weight:500; letter-spacing:-0.005em; border-bottom:1px solid #B9B8B2; padding-bottom:6px; white-space:nowrap;">get in touch <span style="font-size:18px;">→</span></a>
+    </div>
+  </section>
+
+    <Footer />
+  </div>
+</Base>
+
+<style is:global>
+.h-studio-1:hover { opacity:0.9 !important; }
+.h-studio-2:hover { border-bottom-color:#111110 !important; }
+.joincard:hover .ja { transform: translateX(5px); }
+@media (max-width:768px){
+.team-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important; gap:24px 16px !important; align-items:start !important;}
+  .team-grid > div{display:flex !important; flex-direction:column !important; min-width:0 !important;}
+  .team-grid > div > div:first-child{aspect-ratio:4/5 !important; height:auto !important; width:100% !important; flex:none !important; margin-bottom:14px !important;}
+  .team-grid h3{font-size:17px !important; line-height:1.2 !important;}
+  .team-grid > div > div:last-child{font-size:10.5px !important; letter-spacing:0.1em !important; line-height:1.35 !important; margin-top:6px !important; overflow-wrap:anywhere !important;}
+
+@media (max-width:420px){
+  .team-grid{gap:18px 12px !important;}
+  .team-grid h3{font-size:15.5px !important;}
+  .team-grid > div > div:last-child{font-size:10px !important;}
+}
+}
+</style>

@@ -1,12 +1,14 @@
 // All projects, in the order the site lists them. The "next project" link follows this order and wraps around.
 // Image names are files in public/assets/; "-800" variants are expected next to every .webp for srcset.
-// To add a project: add an entry here (first image = hero), add its images to public/assets/, done —
+// To add a project: add an entry here (first image = hero, updated = today), add its images to public/assets/, done —
 // the project page, projects grid, ItemList, breadcrumbs and sitemap all come from this list.
 
 export type Status = 'Idea' | 'In Progress' | 'Construction' | 'Complete';
 
 export interface Project {
   slug: string;
+  /** Last substantive change (sitemap <lastmod>). */
+  updated: string;
   /** Lowercase display title, e.g. 'kv house'. */
   title: string;
   /** '<Category> — <Region>' line above the title; the region also goes into the page <title>. */
@@ -34,6 +36,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     slug: "b-house",
+    updated: "2026-07-08",
     title: "b house",
     eyebrow: "Private Houses — Kefar Tavor",
     type: "Private Houses",
@@ -52,6 +55,7 @@ export const projects: Project[] = [
   },
   {
     slug: "lili-house",
+    updated: "2026-07-08",
     title: "lili house",
     eyebrow: "Residential — Tiberias",
     type: "Residential",
@@ -70,6 +74,7 @@ export const projects: Project[] = [
   },
   {
     slug: "inside-out-house",
+    updated: "2026-07-08",
     title: "inside/out house",
     eyebrow: "Private Houses — Sea of Galilee",
     type: "Private Houses",
@@ -88,6 +93,7 @@ export const projects: Project[] = [
   },
   {
     slug: "g-hotel",
+    updated: "2026-07-08",
     title: "g hotel",
     eyebrow: "Hospitality — Tiberias",
     type: "Hospitality",
@@ -106,6 +112,7 @@ export const projects: Project[] = [
   },
   {
     slug: "p-office",
+    updated: "2026-07-08",
     title: "p office",
     eyebrow: "Commercial — Tiberias",
     type: "Offices",
@@ -125,6 +132,7 @@ export const projects: Project[] = [
   },
   {
     slug: "the-concrete-box",
+    updated: "2026-07-08",
     title: "the concrete box",
     eyebrow: "Private Houses — Ramat HaSharon",
     type: "Private Houses",
@@ -143,6 +151,7 @@ export const projects: Project[] = [
   },
   {
     slug: "pg-house",
+    updated: "2026-07-08",
     title: "pg house",
     eyebrow: "Private Houses — Poriya",
     type: "Private Houses",
@@ -161,6 +170,7 @@ export const projects: Project[] = [
   },
   {
     slug: "h-house",
+    updated: "2026-07-08",
     title: "h house",
     eyebrow: "Private Houses — Jordan Valley",
     type: "Private Houses",
@@ -179,6 +189,7 @@ export const projects: Project[] = [
   },
   {
     slug: "kv-house",
+    updated: "2026-07-08",
     title: "kv house",
     eyebrow: "Private Houses — Sea of Galilee",
     type: "Private Houses",
@@ -197,6 +208,7 @@ export const projects: Project[] = [
   },
   {
     slug: "ak-house",
+    updated: "2026-08-03",
     title: "ak house",
     eyebrow: "Private Houses — Poriya",
     type: "Private Houses",
@@ -215,6 +227,7 @@ export const projects: Project[] = [
   },
   {
     slug: "aa-house",
+    updated: "2026-07-08",
     title: "aa house",
     eyebrow: "Private Houses — Alumot",
     type: "Private Houses",

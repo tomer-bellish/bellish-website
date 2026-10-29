@@ -1,0 +1,100 @@
+---
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://bellish.co.il/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Cookie Policy",
+        "item": "https://bellish.co.il/cookie-policy/"
+      }
+    ]
+  }
+];
+---
+<Base
+  title="Cookie & Privacy Policy — Bellish Architects"
+  description="How bellish.co.il uses cookies and personal data, the consent choices you have, and your rights under Israel's Protection of Privacy Law."
+  path="/cookie-policy/"
+  jsonLd={jsonLd}
+>
+  <div style="background:#F5F4F2; color:#111110; min-height:100vh; display:flex; flex-direction:column;">
+    <Header />
+
+  <!-- TITLE + DECLARATION -->
+  <section style="padding:clamp(64px,11vw,96px) clamp(20px,5vw,48px) clamp(72px,10vw,120px); max-width:900px; margin:0 auto; width:100%; flex:1;">
+    <div style="font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color:#7B7A74; margin-bottom:26px;">Legal · Last updated 17 September 2026</div>
+    <h1 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(40px,6vw,84px); line-height:0.9; letter-spacing:-0.045em; text-transform:lowercase; margin-bottom:24px;">cookie &amp; privacy policy</h1>
+    <p style="font-size:16px; line-height:1.75; color:#3A3A37; max-width:640px; margin-bottom:56px;">This page explains which cookies bellish.co.il uses, what personal data we collect when you contact us, the choices you have, and your rights. We collect as little as possible: no advertising cookies, no profiling, and no analytics unless you say yes.</p>
+
+    <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.03em; text-transform:lowercase; border-top:1px solid #D8D7D2; padding-top:28px; margin-bottom:24px;">who we are</h2>
+    <div style="display:flex; flex-direction:column; gap:14px; font-size:15px; line-height:1.75; color:#3A3A37; max-width:640px; margin-bottom:56px;">
+      <p>Bellish Architects (בליש אדריכלים) operates this website and is responsible for the personal data described here. Offices: Tarshish 4, Kidmat HaGalil, Tiberias; Big Fashion Tower, Floor 5, Ramat HaSharon. Privacy enquiries: <a href="mailto:tomer@bellish.co.il" style="text-decoration:underline; text-underline-offset:3px;">tomer@bellish.co.il</a>.</p>
+    </div>
+
+    <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.03em; text-transform:lowercase; border-top:1px solid #D8D7D2; padding-top:28px; margin-bottom:24px;">the law that applies</h2>
+    <div style="display:flex; flex-direction:column; gap:14px; font-size:15px; line-height:1.75; color:#3A3A37; max-width:640px; margin-bottom:56px;">
+      <p>We process personal data in accordance with Israel's Protection of Privacy Law, 5741-1981, including Amendment 13 (in force since 14 August 2025), the Privacy Protection (Data Security) Regulations, 5777-2017, and the guidance of the Israeli Privacy Protection Authority, which treats data collected through cookies as personal data and recommends an opt-in model for non-essential cookies.</p>
+      <p>If you visit from the European Economic Area or the United Kingdom, we also honour the GDPR / UK GDPR and the ePrivacy rules: non-essential cookies are set only after your prior consent.</p>
+    </div>
+
+    <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.03em; text-transform:lowercase; border-top:1px solid #D8D7D2; padding-top:28px; margin-bottom:24px;">what cookies are</h2>
+    <div style="display:flex; flex-direction:column; gap:14px; font-size:15px; line-height:1.75; color:#3A3A37; max-width:640px; margin-bottom:56px;">
+      <p>Cookies are small text files a website stores on your device. Related technologies, such as browser local storage and tracking pixels, work in a similar way. Below, "cookie" covers all of them.</p>
+    </div>
+
+    <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.03em; text-transform:lowercase; border-top:1px solid #D8D7D2; padding-top:28px; margin-bottom:24px;">cookies in use</h2>
+    <div id="cookie-declaration-mount" style="margin-bottom:56px;">
+      <div style="display:grid; grid-template-columns:minmax(120px,auto) 1fr auto; gap:12px 24px; font-size:14px; line-height:1.6; color:#3A3A37; max-width:720px;">
+        <div style="font-weight:700;">Name</div><div style="font-weight:700;">Purpose</div><div style="font-weight:700;">Duration</div>
+        <div style="grid-column:1 / -1; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:#7B7A74; margin-top:8px;">Essential — no consent needed</div>
+        <div style="font-family:monospace; font-size:13px;">bellish-consent</div><div>Remembers your cookie choice so the banner isn't shown again. Stored in your browser only, never transmitted.</div><div>Until cleared</div>
+        <div style="font-family:monospace; font-size:13px;">tabnav (local storage)</div><div>Saves the display preferences you set in the accessibility toolbar (contrast, text size, etc.).</div><div>Until cleared</div>
+        <div style="grid-column:1 / -1; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:#7B7A74; margin-top:8px;">Analytics — only after you accept</div>
+        <div style="font-family:monospace; font-size:13px;">_ga, _ga_*</div><div>Google Analytics 4 — aggregated, anonymised statistics about how the site is used (pages viewed, device type, approximate region). IP addresses are not stored. Provider: Google Ireland Ltd.</div><div>Up to 2 years</div>
+      </div>
+      <p style="font-size:14px; line-height:1.7; color:#56554F; max-width:640px; margin-top:20px;">We do not use advertising, remarketing or social-media tracking cookies. Web fonts are served by Google Fonts and the optional "preferred source on Google" button loads a Google script — neither sets cookies on this site unless you actively interact with Google.</p>
+      <button type="button" data-consent-open="true" style="margin-top:28px; font-family:'Archivo',sans-serif; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; padding:12px 22px; min-height:44px; background:#111110; color:#F5F4F2; border:1px solid #111110; cursor:pointer;">Manage consent</button>
+    </div>
+
+    <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.03em; text-transform:lowercase; border-top:1px solid #D8D7D2; padding-top:28px; margin-bottom:24px;">how consent works</h2>
+    <div style="display:flex; flex-direction:column; gap:14px; font-size:15px; line-height:1.75; color:#3A3A37; max-width:640px; margin-bottom:56px;">
+      <p>On your first visit a banner offers "Accept" and "Reject" with equal prominence. Until you choose, all non-essential cookies are blocked (Google Consent Mode v2, default "denied"). Rejecting has no effect on your use of the site.</p>
+      <p>You can change or withdraw your consent at any time with the "Manage consent" button above. Withdrawal applies from that moment on; data already collected under a valid consent is not affected.</p>
+    </div>
+
+    <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.03em; text-transform:lowercase; border-top:1px solid #D8D7D2; padding-top:28px; margin-bottom:24px;">information you send us</h2>
+    <div style="display:flex; flex-direction:column; gap:14px; font-size:15px; line-height:1.75; color:#3A3A37; max-width:640px; margin-bottom:56px;">
+      <p>When you contact us by email, phone or WhatsApp, or apply for a position, we receive the details you choose to share (name, contact details, message, CV). We use them only to respond to you, manage the project or recruitment process you asked about, and keep the records the law requires. We keep this information no longer than necessary for those purposes and delete it on request.</p>
+      <p>We do not sell personal data. We share it only with service providers who help us run the studio (e.g. email hosting, Google Workspace) and who are bound to protect it, or when the law requires. Some providers store data outside Israel, in countries the Israeli Privacy Protection Regulations recognise as offering adequate protection.</p>
+    </div>
+
+    <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.03em; text-transform:lowercase; border-top:1px solid #D8D7D2; padding-top:28px; margin-bottom:24px;">your rights</h2>
+    <div style="display:flex; flex-direction:column; gap:14px; font-size:15px; line-height:1.75; color:#3A3A37; max-width:640px; margin-bottom:56px;">
+      <p>You may ask to access the personal data we hold about you, correct it, delete it, or withdraw a consent you gave. Write to <a href="mailto:tomer@bellish.co.il" style="text-decoration:underline; text-underline-offset:3px;">tomer@bellish.co.il</a>; we respond within 30 days. You may also lodge a complaint with the Israeli Privacy Protection Authority or, for EEA/UK residents, your local data-protection authority.</p>
+    </div>
+
+    <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.03em; text-transform:lowercase; border-top:1px solid #D8D7D2; padding-top:28px; margin-bottom:24px;">managing cookies in your browser</h2>
+    <div style="display:flex; flex-direction:column; gap:14px; font-size:15px; line-height:1.75; color:#3A3A37; max-width:640px; margin-bottom:56px;">
+      <p>All browsers let you view, delete and block cookies through their settings (usually under Privacy or Site Data). Blocking essential storage may prevent the consent banner from remembering your choice.</p>
+    </div>
+
+    <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.03em; text-transform:lowercase; border-top:1px solid #D8D7D2; padding-top:28px; margin-bottom:24px;">changes to this policy</h2>
+    <p style="font-size:15px; line-height:1.75; color:#3A3A37; max-width:640px;">We review this page whenever our tools or the law change. The date at the top shows the current version.</p>
+  </section>
+
+    <Footer />
+  </div>
+</Base>
