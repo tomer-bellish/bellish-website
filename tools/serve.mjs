@@ -1,12 +1,12 @@
-// Local preview server for docs/ — zero dependencies.
+// Local preview server for docs/ (or dist/, the Astro build) — zero dependencies.
 // Mimics GitHub Pages: directory index.html, trailing-slash redirects, custom 404.
-// Usage: node tools/serve.mjs [port]
+// Usage: node tools/serve.mjs [port] [folder=docs]
 import { createServer } from 'node:http';
 import { stat, readFile } from 'node:fs/promises';
 import { join, extname, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const ROOT = fileURLToPath(new URL('../docs/', import.meta.url));
+const ROOT = fileURLToPath(new URL(`../${process.argv[3] || 'docs'}/`, import.meta.url));
 const PORT = Number(process.argv[2] || process.env.PORT || 8080);
 
 const TYPES = {

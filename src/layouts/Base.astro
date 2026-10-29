@@ -10,15 +10,16 @@ interface Props {
   ogTitle?: string;
   /** JSON-LD blocks, serialized as-is. */
   jsonLd?: object[];
-  /** Above-the-fold image to preload (LCP). */
-  preload?: string;
+  /** Above-the-fold image to preload (LCP). Pass srcset/sizes identical to the <img> so the same file is fetched. */
+  preload?: string | { href: string; srcset?: string; sizes?: string };
   bodyClass?: string;
   /** Pages that fade sections in on scroll (.reveal). Home animates on load instead. */
   reveal?: boolean;
   noindex?: boolean;
 }
 
-const { title, description, path, ogTitle = title, jsonLd = [], preload, bodyClass, reveal = true, noindex = false } = Astro.props;
+const { title, description, path, ogTitle = title, jsonLd = [], bodyClass, reveal = true, noindex = false } = Astro.props;
+const preload = typeof Astro.props.preload === 'string' ? { href: Astro.props.preload } : Astro.props.preload;
 const site = 'https://bellish.co.il';
 const url = site + path;
 const ogImage = `${site}/assets/og-logo.png`;
@@ -67,13 +68,14 @@ const tabnavConfig = JSON.stringify({ language: 'us-en', color: '#000000', butto
   <meta name="twitter:image" content={ogImage}>
   {jsonLd.map((data) => <script is:inline type="application/ld+json" set:html={JSON.stringify(data)} />)}
   <link rel="preload" href="/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
-  {preload && <link rel="preload" as="image" href={preload} fetchpriority="high">}
+  {preload && <link rel="preload" as="image" href={preload.href} imagesrcset={preload.srcset} imagesizes={preload.srcset && preload.sizes} fetchpriority="high">}
   <slot name="head" />
   <script is:inline src="/assets/tabnav-widget.js" tnv-data-config={tabnavConfig} defer></script>
 </head>
 <body class={bodyClass}>
   <noscript> JavaScript is required for <a href="https://tabnav.com/accessibility-widget">tabnav web accessibility widget</a> to work properly. </noscript>
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T3H6PWPH" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <a href="#main" class="skip">Skip to content</a>
   <slot />
   <script is:inline>
     (function () {
@@ -85,11 +87,21 @@ const tabnavConfig = JSON.stringify({ language: 'us-en', color: '#000000', butto
         setTimeout(function () { rv.forEach(show); }, 2600);
       } else { rv.forEach(show); }
 
+      // Mobile menu: toggle button, close on link click or Escape.
+      var toggle = document.querySelector('.nav-toggle'), nav = document.querySelector('.nav-links');
+      function setMenu(open) {
+        if (!toggle || !nav) return;
+        nav.classList.toggle('open', open);
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        toggle.style.color = open ? '#F5F4F2' : (toggle.getAttribute('data-base') || '#111110');
+        toggle.textContent = open ? '✕' : '☰';
+      }
       document.addEventListener('click', function (e) {
-        var t = e.target.closest && e.target.closest('.nav-toggle');
-        if (t) { var nav = t.closest('header').querySelector('.nav-links'); var open = nav.classList.toggle('open'); t.style.color = open ? '#F5F4F2' : (t.getAttribute('data-base') || '#111110'); t.textContent = open ? '✕' : '☰'; return; }
-        var link = e.target.closest && e.target.closest('.nav-links a');
-        if (link) { document.querySelectorAll('.nav-links.open').forEach(function (n) { n.classList.remove('open'); }); var b = document.querySelector('.nav-toggle'); if (b) b.textContent = '☰'; }
+        if (e.target.closest && e.target.closest('.nav-toggle')) { setMenu(!nav.classList.contains('open')); return; }
+        if (e.target.closest && e.target.closest('.nav-links a')) setMenu(false);
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && nav && nav.classList.contains('open')) { setMenu(false); toggle.focus(); }
       });
     })();
   </script>

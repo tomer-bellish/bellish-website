@@ -13,8 +13,8 @@ const links = [
 ---
 <header class:list={['site-header', variant]}>
   <a href="/" class="logo"><img src="/assets/logo.png" alt="Bellish" width="320" height="132"></a>
-  <button class="nav-toggle" aria-label="Menu" data-base={variant === 'hero' ? '#F5F4F2' : '#111110'}>☰</button>
-  <nav class="nav-links">
+  <button class="nav-toggle" aria-label="Menu" aria-expanded="false" aria-controls="site-nav" data-base={variant === 'hero' ? '#F5F4F2' : '#111110'}>☰</button>
+  <nav class="nav-links" id="site-nav" aria-label="Main">
     {links.map((l) => <a href={l.href} aria-current={l.key === current ? 'page' : undefined}>{l.label}</a>)}
   </nav>
 </header>

@@ -18,8 +18,12 @@
     var btn = document.createElement('button');
     btn.id = 'gps-btn';
     btn.type = 'button';
-    btn.textContent = 'add bellish as a preferred source on google \u2197';
-    btn.setAttribute('aria-label', 'Add Bellish Architects as a preferred source on Google');
+    // Accessible name = visible text (WCAG 2.5.3); the arrow is decoration.
+    btn.appendChild(document.createTextNode('add bellish as a preferred source on google '));
+    var arrow = document.createElement('span');
+    arrow.setAttribute('aria-hidden', 'true');
+    arrow.textContent = '\u2197';
+    btn.appendChild(arrow);
     btn.style.cssText = 'background:none;border:none;padding:0;margin:0;color:inherit;font:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer;text-decoration:underline;text-underline-offset:3px;';
     btn.addEventListener('click', function () {
       if (ps) { ps.addPreferredSource(); }

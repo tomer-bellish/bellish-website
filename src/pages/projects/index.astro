@@ -1,10 +1,10 @@
 ---
-import { existsSync } from 'node:fs';
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { projects, STATUS_COLORS, displayName, place } from '../../data/projects';
 import { SITE, breadcrumbs } from '../../data/site';
+import { srcset } from '../../lib/images';
 
 const PER_PAGE = 6;
 const types = [...new Set(projects.map((p) => p.type))];
@@ -14,21 +14,18 @@ const itemList = {
   name: 'Projects by Bellish Architects',
   itemListElement: projects.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: displayName(p), url: `${SITE}/project/${p.slug}/` })),
 };
-const assets = new URL('../../../public/assets/', import.meta.url);
-const small = (name: string) => {
-  const s = name.replace(/\.webp$/, '-800.webp');
-  return name.endsWith('.webp') && existsSync(new URL(s, assets)) ? `/assets/${s} 800w, /assets/${name} 1600w` : undefined;
-};
+const CARD_SIZES = '(max-width: 1000px) 100vw, 50vw';
 ---
 <Base
   title="Projects — Bellish Architects"
   description="Selected works by Bellish Architects — private homes, residential buildings, and commercial projects across Israel."
   path="/projects/"
   jsonLd={[breadcrumbs({ name: 'Projects', path: '/projects/' }), itemList]}
-  preload="/assets/b-house-hero-1920.webp"
+  preload={{ href: `/assets/${projects[0].hero}`, srcset: srcset(projects[0].hero), sizes: CARD_SIZES }}
 >
   <div style="background:#F5F4F2; color:#111110; min-height:100vh;">
     <Header current="projects" />
+    <main id="main">
 
     <!-- PAGE HEADER -->
     <section class="reveal" style="padding:clamp(72px,12vw,104px) clamp(20px,5vw,48px) 64px; max-width:1320px; margin:0 auto;">
@@ -55,11 +52,14 @@ const small = (name: string) => {
           return (
             <a href={`/project/${p.slug}/`} class="pcard" data-slug={p.slug} data-type={p.type} hidden={n >= PER_PAGE} style="display:block;">
               <div class="ph" style="position:relative; aspect-ratio:4/3; overflow:hidden; margin-bottom:20px; background:#E7E6E2;">
-                {gal.map((src, i) => (
-                  <img src={`/assets/${src}`} srcset={small(src)} sizes={small(src) ? '(max-width: 1000px) 100vw, 50vw' : undefined}
-                    alt={`${name} by Bellish Architects — ${place(p)}, image ${i + 1}`} class="pimg" width="1600" height="1200"
-                    loading={i === 0 && n < PER_PAGE ? 'eager' : 'lazy'} decoding="async" style={`opacity:${i === 0 ? 1 : 0};`}>
-                ))}
+                {gal.map((src, i) => {
+                  // Only the first image loads up front; the rest are filled in when the card is first touched.
+                  const set = srcset(src);
+                  const attrs = i === 0
+                    ? { src: `/assets/${src}`, srcset: set, sizes: set && CARD_SIZES, loading: n < PER_PAGE ? 'eager' : 'lazy' }
+                    : { 'data-src': `/assets/${src}`, 'data-srcset': set, 'data-sizes': set && CARD_SIZES, loading: 'lazy' };
+                  return <img {...attrs} alt={`${name} by Bellish Architects — ${place(p)}, image ${i + 1}`} class="pimg" width="1600" height="1200" decoding="async" style={`opacity:${i === 0 ? 1 : 0};`}>;
+                })}
                 <button type="button" class="pnav parrow" aria-label="Previous image" data-step="-1" style="left:14px;">‹</button>
                 <button type="button" class="pnav parrow" aria-label="Next image" data-step="1" style="right:14px;">›</button>
                 <div class="pnav pcount">1 / {gal.length}</div>
@@ -68,8 +68,8 @@ const small = (name: string) => {
               <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px;">
                 <div>
                   <div style="display:flex; align-items:center; gap:10px;">
-                    <h3 class="ptitle" style="font-weight:800; font-size:26px; line-height:0.98; letter-spacing:-0.03em; text-transform:lowercase;">{name}</h3>
-                    <span class="status-dot" title={p.status} aria-label={`Status: ${p.status}`} style={`flex:none; width:10px; height:10px; border-radius:50%; background:${STATUS_COLORS[p.status]}; animation:statusPulse 2s ease-in-out infinite;`}></span>
+                    <h2 class="ptitle" style="font-weight:800; font-size:26px; line-height:0.98; letter-spacing:-0.03em; text-transform:lowercase;">{name}</h2>
+                    <span class="status-dot" role="img" title={p.status} aria-label={`Status: ${p.status}`} style={`flex:none; width:10px; height:10px; border-radius:50%; background:${STATUS_COLORS[p.status]}; animation:statusPulse 2s ease-in-out infinite;`}></span>
                   </div>
                   <div style="display:flex; gap:20px; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#7B7A74; margin-top:10px;">
                     <span>{p.type}</span><span>{place(p)}</span><span>{p.year}</span>
@@ -88,6 +88,7 @@ const small = (name: string) => {
       <div class="pager" data-per-page={PER_PAGE} style="display:flex; gap:8px; justify-content:center; align-items:center; flex-wrap:wrap; border-top:1px solid #D8D7D2; padding-top:40px;"></div>
     </section>
 
+    </main>
     <Footer homeInsteadOf="projects" />
   </div>
 </Base>
@@ -134,7 +135,21 @@ const small = (name: string) => {
     });
 
     // Card carousels: arrows, swipe, dots, counter, circular.
+    // Images after the first are fetched the first time a card is hovered, focused or touched.
+    function hydrate(card) {
+      if (!card || card.hasAttribute('data-hydrated')) return;
+      card.setAttribute('data-hydrated', '');
+      card.querySelectorAll('img[data-src]').forEach(function (im) {
+        if (im.dataset.srcset) { im.sizes = im.dataset.sizes; im.srcset = im.dataset.srcset; }
+        im.src = im.dataset.src;
+        im.removeAttribute('data-src');
+      });
+    }
+    ['pointerover', 'focusin', 'touchstart'].forEach(function (type) {
+      document.addEventListener(type, function (e) { hydrate(e.target.closest && e.target.closest('.pcard')); }, { passive: true });
+    });
     function step(card, dir) {
+      hydrate(card);
       var imgs = card.querySelectorAll('.pimg'), dots = card.querySelectorAll('.pdots span');
       var cur = +(card.getAttribute('data-idx') || 0), len = imgs.length;
       cur = (cur + dir + len) % len;
@@ -185,7 +200,7 @@ const small = (name: string) => {
   .pdots span.on { background: #F5F4F2; }
   .pnav { opacity: 0; transition: opacity .28s ease; }
   .pnav.parrow { transition: transform .2s ease; }
-  .pcard:hover .pnav { opacity: 1; }
+  .pcard:hover .pnav, .pcard:focus-within .pnav { opacity: 1; }
   .parrow:hover { transform: translateY(-50%) scale(1.18) !important; }
   @media (hover: none) { .pnav { opacity: 1; } }
   .pcard .ar { transition: transform .35s ease; }

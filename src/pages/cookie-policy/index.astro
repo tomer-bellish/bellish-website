@@ -32,6 +32,7 @@ const jsonLd = [
 >
   <div style="background:#F5F4F2; color:#111110; min-height:100vh; display:flex; flex-direction:column;">
     <Header />
+    <main id="main" style="flex:1; display:flex; flex-direction:column;">
 
   <!-- TITLE + DECLARATION -->
   <section style="padding:clamp(64px,11vw,96px) clamp(20px,5vw,48px) clamp(72px,10vw,120px); max-width:900px; margin:0 auto; width:100%; flex:1;">
@@ -41,7 +42,7 @@ const jsonLd = [
 
     <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.03em; text-transform:lowercase; border-top:1px solid #D8D7D2; padding-top:28px; margin-bottom:24px;">who we are</h2>
     <div style="display:flex; flex-direction:column; gap:14px; font-size:15px; line-height:1.75; color:#3A3A37; max-width:640px; margin-bottom:56px;">
-      <p>Bellish Architects (בליש אדריכלים) operates this website and is responsible for the personal data described here. Offices: Tarshish 4, Kidmat HaGalil, Tiberias; Big Fashion Tower, Floor 5, Ramat HaSharon. Privacy enquiries: <a href="mailto:tomer@bellish.co.il" style="text-decoration:underline; text-underline-offset:3px;">tomer@bellish.co.il</a>.</p>
+      <p>Bellish Architects (<span lang="he">בליש אדריכלים</span>) operates this website and is responsible for the personal data described here. Offices: Tarshish 4, Kidmat HaGalil, Tiberias; Big Fashion Tower, Floor 5, Ramat HaSharon. Privacy enquiries: <a href="mailto:tomer@bellish.co.il" style="text-decoration:underline; text-underline-offset:3px;">tomer@bellish.co.il</a>.</p>
     </div>
 
     <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.03em; text-transform:lowercase; border-top:1px solid #D8D7D2; padding-top:28px; margin-bottom:24px;">the law that applies</h2>
@@ -57,7 +58,7 @@ const jsonLd = [
 
     <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(22px,2.4vw,30px); letter-spacing:-0.03em; text-transform:lowercase; border-top:1px solid #D8D7D2; padding-top:28px; margin-bottom:24px;">cookies in use</h2>
     <div id="cookie-declaration-mount" style="margin-bottom:56px;">
-      <div style="display:grid; grid-template-columns:minmax(120px,auto) 1fr auto; gap:12px 24px; font-size:14px; line-height:1.6; color:#3A3A37; max-width:720px;">
+      <div class="ctable" style="display:grid; grid-template-columns:minmax(120px,auto) 1fr auto; gap:12px 24px; font-size:14px; line-height:1.6; color:#3A3A37; max-width:720px;">
         <div style="font-weight:700;">Name</div><div style="font-weight:700;">Purpose</div><div style="font-weight:700;">Duration</div>
         <div style="grid-column:1 / -1; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:#7B7A74; margin-top:8px;">Essential — no consent needed</div>
         <div style="font-family:monospace; font-size:13px;">bellish-consent</div><div>Remembers your cookie choice so the banner isn't shown again. Stored in your browser only, never transmitted.</div><div>Until cleared</div>
@@ -95,6 +96,15 @@ const jsonLd = [
     <p style="font-size:15px; line-height:1.75; color:#3A3A37; max-width:640px;">We review this page whenever our tools or the law change. The date at the top shows the current version.</p>
   </section>
 
+    </main>
     <Footer />
   </div>
 </Base>
+
+<style is:global>
+/* Cookie table: reflow at 320px (WCAG 1.4.10) without changing 375px and up. */
+@media (max-width:360px){
+  .ctable{grid-template-columns:minmax(0,1fr) minmax(0,1.6fr) auto !important; gap:10px 14px !important;}
+  .ctable > div{overflow-wrap:anywhere;}
+}
+</style>

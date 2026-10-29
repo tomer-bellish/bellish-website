@@ -3,6 +3,7 @@ import Base from '../../../layouts/Base.astro';
 import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
 import ProjectBody from '../../../components/ProjectBody.astro';
+import { srcset } from '../../../lib/images';
 import { projects, displayName, region, type Project } from '../../../data/projects';
 import { SITE, breadcrumbs } from '../../../data/site';
 
@@ -32,12 +33,14 @@ const creativeWork = {
   description={description}
   path={path}
   jsonLd={[breadcrumbs({ name: 'Projects', path: '/projects/' }, { name, path }), creativeWork]}
-  preload={`/assets/${p.hero}`}
+  preload={{ href: `/assets/${p.hero}`, srcset: srcset(p.hero), sizes: '100vw' }}
 >
   <script is:inline slot="head" src="/assets/lightbox.js" defer></script>
   <div style="background:#F5F4F2; color:#111110; min-height:100vh;">
     <Header current="projects" />
-    <ProjectBody project={p} />
+    <main id="main">
+      <ProjectBody project={p} />
+    </main>
     <Footer />
   </div>
 </Base>
