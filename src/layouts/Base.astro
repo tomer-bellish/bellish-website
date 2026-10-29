@@ -38,7 +38,9 @@ const tabnavConfig = JSON.stringify({ language: 'us-en', color: '#000000', butto
   <meta name="description" content={description}>
   {noindex && <meta name="robots" content="noindex">}
   <meta name="theme-color" content="#111110">
+  <!-- Google uses the home page's icon in search results: square, a multiple of 48px, crawlable. -->
   <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon.png">
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="/assets/favicon.png">
   <link rel="canonical" href={url}>
   <meta property="og:title" content={ogTitle}>
