@@ -14,6 +14,9 @@ This folder is the clone of `github.com/tomer-bellish/bellish-website`.
 - `public/` — assets (images, scripts), fonts, CNAME, robots.txt, favicon.ico, 404.html, and the static
   `/projects/<slug>/` redirect pages. Other old-URL redirects live in `redirects` in `astro.config.mjs`.
 - `npm run build` → `dist/`. Preview configs: `astro` (dev server, 4321) and `dist` (`tools/serve.mjs`, built site, 8081).
+- `npm run check` (after a build) → `tools/check.mjs`: internal links, SEO tags, JSON-LD, sitemap, axe-core on every
+  page at 1280 and 375px, and cookie consent (no third party before "Accept" except tabnav; GA loads after it).
+  Uses Playwright's Chromium if installed, otherwise the local Chrome or Edge. Takes about 40 seconds.
 - `design-source/` — the original Claude Design files (`*.dc.html`), kept as a design reference only.
 - The previous bundled site (`docs/`) was removed on 29.10.2026 after the cutover; it is in git history before
   that commit. Local-only branches: `astro` (where the rebuild was done), `handoff`, `backup/site-2026-07-04`.
@@ -28,13 +31,15 @@ This folder is the clone of `github.com/tomer-bellish/bellish-website`.
   injected in its `loadTags()` after "Accept". GTM was removed (its container GTM-T3H6PWPH was empty). Never add a
   third-party script to `Base.astro` directly; add it there and list it in the cookie policy.
 - Text colours must keep ≥ 4.5:1 (secondary grey on paper is `#71706B`, not the design's `#7B7A74`); UI borders ≥ 3:1.
-  axe-core (`https://cdn.jsdelivr.net/npm/axe-core@4.14.0/axe.min.js`) should report 0 violations on every page.
+  axe-core (4.14.0, a dev dependency) must report 0 violations on every page — `npm run check` enforces it.
+- Run `npm run build && npm run check` before every commit that changes the site; a failure blocks the deploy anyway.
 - Keep every URL, meta tag, JSON-LD block and asset path stable — SEO depends on them.
 - The owner sometimes runs several Claude sessions on this folder at once. Before committing, check `git status` /
   `git diff` for changes you did not make and commit only your own (stage partial files from a HEAD-based copy).
 
 ## Deploy
-GitHub Pages with Source = **GitHub Actions**: `.github/workflows/deploy.yml` builds and publishes on every push to
-`main` (about 1–2 minutes). The owner chose Claude to push from here; still confirm before each push — it goes live.
+GitHub Pages with Source = **GitHub Actions**: `.github/workflows/deploy.yml` builds, runs `npm run check` and
+publishes on every push to `main` (about 3 minutes). If the check fails nothing is published, the live site stays as
+it was, and GitHub emails the owner. The owner chose Claude to push from here; still confirm before each push — it goes live.
 GitHub handles HTTPS and the www redirect; custom HTTP headers are not possible.
-Rollback: `git revert` the bad commit and push — the workflow redeploys in 1–2 minutes.
+Rollback: `git revert` the bad commit and push — the workflow redeploys in about 3 minutes.
