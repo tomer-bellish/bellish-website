@@ -31,10 +31,8 @@ const tabnavConfig = JSON.stringify({ language: 'us-en', color: '#000000', butto
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   {reveal && <script is:inline>document.documentElement.classList.add('js-anim');</script>}
-  <!-- Cookie consent. Loads GTM, GA4 and Google Preferred Sources itself, and only after the visitor accepts. -->
+  <!-- Cookie consent. Loads GA4 and Google Preferred Sources itself, and only after the visitor accepts. -->
   <script is:inline src="/assets/cookie-consent.js"></script>
-  <!-- Measurement events go to the local dataLayer only; GTM reads them once consent loads it. -->
-  <script is:inline src="/assets/gtm-events.js"></script>
 
   <title>{title}</title>
   <meta name="description" content={description}>

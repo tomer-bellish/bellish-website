@@ -1,5 +1,5 @@
 /* Bellish Architects — self-hosted cookie consent (opt-in, Google Consent Mode v2).
-   Load this first in <head>. Nothing that talks to Google — GTM, GA4, Preferred Sources — is loaded until the
+   Load this first in <head>. Nothing that talks to Google — GA4, Preferred Sources — is loaded until the
    visitor accepts ("basic" consent mode), so no data leaves the browser before a choice is made.
    The choice is stored in localStorage and asked again after 12 months.
    API: window.__bellishConsent.open()   — re-open the banner (any element with data-consent-open also does)
@@ -8,7 +8,6 @@
   if (window.__bellishConsent) return;
   var KEY = 'bellish-consent';
   var MAX_AGE = 365 * 24 * 60 * 60 * 1000;
-  var GTM_ID = 'GTM-T3H6PWPH';
   var GA_ID = 'G-4TLRV6RJNT';
 
   window.dataLayer = window.dataLayer || [];
@@ -49,8 +48,6 @@
   function loadTags() {
     if (loaded) return;
     loaded = true;
-    window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-    addScript('https://www.googletagmanager.com/gtm.js?id=' + GTM_ID);
     addScript('https://www.googletagmanager.com/gtag/js?id=' + GA_ID);
     gtag('js', new Date());
     gtag('config', GA_ID);
