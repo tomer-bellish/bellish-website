@@ -14,8 +14,8 @@ export const organization = {
   url: `${SITE}/`,
   logo: `${SITE}/assets/logo.png`,
   image: `${SITE}/assets/lili-house-hero-1920.webp`,
-  email: 'tomer@bellish.co.il',
-  telephone: '+972546077729',
+  email: 'office@bellish.co.il',
+  telephone: '+97246029585',
   address: [
     { '@type': 'PostalAddress', streetAddress: 'Tarshish 4, Kidmat HaGalil', addressLocality: 'Tiberias', addressCountry: 'IL' },
     { '@type': 'PostalAddress', streetAddress: 'Big Fashion Tower, Floor 5', addressLocality: 'Ramat HaSharon', addressCountry: 'IL' },

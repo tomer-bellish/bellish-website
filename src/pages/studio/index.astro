@@ -2,6 +2,9 @@
 import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import { team, properName } from '../../data/team';
+
+const teamCount = String(team.length).padStart(2, '0');
 
 const jsonLd = [
   {
@@ -26,7 +29,7 @@ const jsonLd = [
 ---
 <Base
   title="Studio — Bellish Architects"
-  description="Meet Bellish Architects — a boutique studio of ten, working across residential, office, and commercial architecture with care and a long attention span."
+  description="Meet Bellish Architects — a boutique studio working across residential, office, and commercial architecture with care and a long attention span."
   path="/studio/"
   jsonLd={jsonLd}
 >
@@ -78,7 +81,7 @@ const jsonLd = [
       <!-- stats -->
       <div style="display:flex; gap:80px; margin-top:88px; padding-top:36px; border-top:1px solid #262624; flex-wrap:wrap;">
         <div><div style="font-family:'Archivo',sans-serif; font-size:clamp(44px,5vw,64px); font-weight:800; letter-spacing:-0.04em; line-height:1;">120+</div><div style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#86857F; margin-top:10px;">Completed projects</div></div>
-        <div><div style="font-family:'Archivo',sans-serif; font-size:clamp(44px,5vw,64px); font-weight:800; letter-spacing:-0.04em; line-height:1;">08</div><div style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#86857F; margin-top:10px;">Team members</div></div>
+        <div><div style="font-family:'Archivo',sans-serif; font-size:clamp(44px,5vw,64px); font-weight:800; letter-spacing:-0.04em; line-height:1;">{teamCount}</div><div style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#86857F; margin-top:10px;">Team members</div></div>
         <div><div style="font-family:'Archivo',sans-serif; font-size:clamp(44px,5vw,64px); font-weight:800; letter-spacing:-0.04em; line-height:1;">02</div><div style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#86857F; margin-top:10px;">Branches</div></div>
       </div>
     </div>
@@ -92,79 +95,19 @@ const jsonLd = [
     </div>
     <div class="team-grid" style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:40px;">
 
-      <!-- member -->
-      <div>
-        <div style="position:relative; aspect-ratio:4/5; overflow:hidden; background:#E7E6E2; background-image:repeating-linear-gradient(135deg,#DEDDD8 0 1px,transparent 1px 13px); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
-          <img src="/assets/team-tomer-bellish.webp" alt="Portrait of Tomer Bellish, Bellish Architects" loading="lazy" width="900" height="1125" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" />
+      {team.map((m) => (
+        <div>
+          <div style="position:relative; aspect-ratio:4/5; overflow:hidden; background:#E7E6E2; background-image:repeating-linear-gradient(135deg,#DEDDD8 0 1px,transparent 1px 13px); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
+            {m.photo
+              ? <img src={`/assets/${m.photo}`} alt={`Portrait of ${properName(m.name)}, Bellish Architects`} loading="lazy" width="900" height="1125" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" />
+              : <img src="/assets/team-placeholder.webp" alt="" aria-hidden="true" loading="lazy" width="900" height="1125" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" />}
+          </div>
+          <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:22px; letter-spacing:-0.03em; text-transform:lowercase;">{m.name}</h3>
+          <div style="font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color:#71706B; margin-top:8px;">{m.role}</div>
         </div>
-        <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:22px; letter-spacing:-0.03em; text-transform:lowercase;">tomer bellish</h3>
-        <div style="font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color:#71706B; margin-top:8px;">Founder &amp; Architect</div>
-      </div>
+      ))}
 
-      <!-- member -->
-      <div>
-        <div style="position:relative; aspect-ratio:4/5; overflow:hidden; background:#E7E6E2; background-image:repeating-linear-gradient(135deg,#DEDDD8 0 1px,transparent 1px 13px); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
-          <img src="/assets/team-jenine-bellish.webp" alt="Portrait of Jenine Bellish, Bellish Architects" loading="lazy" width="900" height="1125" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" />
-        </div>
-        <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:22px; letter-spacing:-0.03em; text-transform:lowercase;">jenine bellish</h3>
-        <div style="font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color:#71706B; margin-top:8px;">Founder &amp; Urban Planner</div>
-      </div>
-
-      <!-- member -->
-      <div>
-        <div style="position:relative; aspect-ratio:4/5; overflow:hidden; background:#E7E6E2; background-image:repeating-linear-gradient(135deg,#DEDDD8 0 1px,transparent 1px 13px); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
-          <img src="/assets/team-placeholder.webp" alt="" aria-hidden="true" loading="lazy" width="900" height="1125" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" />
-        </div>
-        <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:22px; letter-spacing:-0.03em; text-transform:lowercase;">carmit ezra</h3>
-        <div style="font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color:#71706B; margin-top:8px;">Architecture Practical Engineer</div>
-      </div>
-
-      <!-- member -->
-      <div>
-        <div style="position:relative; aspect-ratio:4/5; overflow:hidden; background:#E7E6E2; background-image:repeating-linear-gradient(135deg,#DEDDD8 0 1px,transparent 1px 13px); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
-          <img src="/assets/team-placeholder.webp" alt="" aria-hidden="true" loading="lazy" width="900" height="1125" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" />
-        </div>
-        <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:22px; letter-spacing:-0.03em; text-transform:lowercase;">adi sabo</h3>
-        <div style="font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color:#71706B; margin-top:8px;">Architecture Practical Engineer</div>
-      </div>
-
-      <!-- member -->
-      <div>
-        <div style="position:relative; aspect-ratio:4/5; overflow:hidden; background:#E7E6E2; background-image:repeating-linear-gradient(135deg,#DEDDD8 0 1px,transparent 1px 13px); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
-          <img src="/assets/team-placeholder.webp" alt="" aria-hidden="true" loading="lazy" width="900" height="1125" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" />
-        </div>
-        <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:22px; letter-spacing:-0.03em; text-transform:lowercase;">yarden ben hamo</h3>
-        <div style="font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color:#71706B; margin-top:8px;">Architecture Practical Engineer</div>
-      </div>
-
-      <!-- member -->
-      <div>
-        <div style="position:relative; aspect-ratio:4/5; overflow:hidden; background:#E7E6E2; background-image:repeating-linear-gradient(135deg,#DEDDD8 0 1px,transparent 1px 13px); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
-          <img src="/assets/team-efrat-yakuti.webp" alt="Portrait of Efrat Yakuti, Bellish Architects" loading="lazy" width="900" height="1125" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" />
-        </div>
-        <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:22px; letter-spacing:-0.03em; text-transform:lowercase;">efrat yakuti</h3>
-        <div style="font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color:#71706B; margin-top:8px;">Architecture Practical Engineer</div>
-      </div>
-
-      <!-- member -->
-      <div>
-        <div style="position:relative; aspect-ratio:4/5; overflow:hidden; background:#E7E6E2; background-image:repeating-linear-gradient(135deg,#DEDDD8 0 1px,transparent 1px 13px); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
-          <img src="/assets/team-placeholder.webp" alt="" aria-hidden="true" loading="lazy" width="900" height="1125" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" />
-        </div>
-        <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:22px; letter-spacing:-0.03em; text-transform:lowercase;">hadar hatav</h3>
-        <div style="font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color:#71706B; margin-top:8px;">Architecture Practical Engineer</div>
-      </div>
-
-      <!-- member -->
-      <div>
-        <div style="position:relative; aspect-ratio:4/5; overflow:hidden; background:#E7E6E2; background-image:repeating-linear-gradient(135deg,#DEDDD8 0 1px,transparent 1px 13px); display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
-          <img src="/assets/team-placeholder.webp" alt="" aria-hidden="true" loading="lazy" width="900" height="1125" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block;" />
-        </div>
-        <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:22px; letter-spacing:-0.03em; text-transform:lowercase;">astar ben harush</h3>
-        <div style="font-size:11.5px; letter-spacing:0.12em; text-transform:uppercase; color:#71706B; margin-top:8px;">Financial Manager</div>
-      </div>
-
-      <!-- member -->
+      <!-- alfi: not in the team count -->
       <div>
         <div style="position:relative; aspect-ratio:4/5; overflow:hidden; background:#E7E6E2; margin-bottom:20px;">
           <img src="/assets/team-alfi.jpg" alt="Alfi — Security" width="1122" height="1402" loading="lazy" style="width:100%; height:100%; object-fit:cover; display:block;">
