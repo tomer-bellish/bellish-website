@@ -1,0 +1,130 @@
+---
+import { existsSync } from 'node:fs';
+import { type Project, STATUS_COLORS, nextProject } from '../data/projects';
+
+interface Props { project: Project }
+const { project: p } = Astro.props;
+const next = nextProject(p);
+const statusColor = STATUS_COLORS[p.status] ?? '#7B7A74';
+
+// srcset only when the 800px variant actually exists (missing variants used to 404 on 1x screens).
+const publicDir = new URL('../../public/assets/', import.meta.url);
+function img(name: string, alt: string, eager = false) {
+  const small = name.replace(/\.webp$/, '-800.webp');
+  const hasSmall = name.endsWith('.webp') && existsSync(new URL(small, publicDir));
+  return {
+    src: `/assets/${name}`,
+    srcset: hasSmall ? `/assets/${small} 800w, /assets/${name} 1600w` : undefined,
+    sizes: hasSmall ? (eager ? '100vw' : '(max-width: 700px) 100vw, 50vw') : undefined,
+    alt,
+    loading: eager ? 'eager' : 'lazy',
+    fetchpriority: eager ? 'high' : undefined,
+  } as const;
+}
+
+// Gallery rhythm: one full-width 16:9 image, then a pair of 4:3 images, repeat.
+const rows: { full?: string; pair?: string[]; start: number }[] = [];
+for (let i = 0; i < p.gallery.length; ) {
+  rows.push({ full: p.gallery[i], start: i });
+  i++;
+  if (i < p.gallery.length) { rows.push({ pair: p.gallery.slice(i, i + 2), start: i }); i += 2; }
+}
+const viewAlt = (n: number) => `${p.title} by Bellish Architects — view ${n + 1}`;
+const label = 'font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#7B7A74;';
+const stat = "font-family:'Archivo',sans-serif; font-weight:800; font-size:20px; letter-spacing:-0.02em;";
+const imgStyle = 'width:100%; height:100%; object-fit:cover; display:block; cursor:zoom-in;';
+const detail = (k: string, v: string) => ({ k, v });
+const details = [detail('Location', p.location), detail('Client', p.client), detail('Size', p.size), detail('Status', p.status), ...(p.plot ? [detail('Plot', p.plot)] : [])];
+const credits = [detail('Bellish design team', p.credits.team), detail('Collaborators', p.credits.collaborators), detail('Render', p.credits.render)];
+---
+<!-- TITLE -->
+<section class="reveal" style="padding:48px clamp(20px,5vw,48px) 56px; max-width:1320px; margin:0 auto;">
+  <a href="/projects/" class="hov-ink" style="display:inline-flex; align-items:center; gap:10px; font-size:13px; font-weight:500; color:#56554F; margin-bottom:64px;"><span style="font-size:16px;">←</span> all projects</a>
+  <div style="font-size:12px; letter-spacing:0.2em; text-transform:uppercase; color:#7B7A74; margin-bottom:24px;">{p.eyebrow}</div>
+  <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:40px; flex-wrap:wrap;">
+    <h1 style="font-weight:800; font-size:clamp(52px,9vw,140px); line-height:0.86; letter-spacing:-0.05em; text-transform:lowercase;">{p.title}</h1>
+    <div style="display:flex; flex-wrap:wrap; gap:20px 40px; padding-bottom:10px;">
+      <div><div style={`${label} margin-bottom:6px;`}>Year</div><div style={stat}>{p.year}</div></div>
+      <div><div style={`${label} margin-bottom:6px;`}>Size</div><div style={stat}>{p.size}</div></div>
+      {p.plot && <div><div style={`${label} margin-bottom:6px;`}>Plot</div><div style={stat}>{p.plot}</div></div>}
+      <div><div style={`${label} margin-bottom:6px;`}>Type</div><div style={stat}>{p.type}</div></div>
+      <div><div style={`${label} margin-bottom:6px;`}>Status</div><div style={`display:flex; align-items:center; gap:10px; ${stat}`}>{p.status}<span class="status-dot" title={p.status} aria-label={`Status: ${p.status}`} style={`flex:none; width:11px; height:11px; border-radius:50%; background:${statusColor}; animation:statusPulse 2s ease-in-out infinite;`}></span></div></div>
+    </div>
+  </div>
+</section>
+
+{p.full !== false ? (
+  <>
+    <div style="width:100%; aspect-ratio:16/9; overflow:hidden; background:#E7E6E2;">
+      <img {...img(p.hero, `${p.title} by Bellish Architects — ${p.eyebrow}`, true)} class="zoomable" width="1920" height="1080" decoding="async" style={imgStyle}>
+    </div>
+
+    <section class="reveal" style="padding:clamp(64px,11vw,120px) clamp(20px,5vw,48px); max-width:1320px; margin:0 auto;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:32px 64px; align-items:start;">
+        <div style="font-family:monospace; font-size:13px; letter-spacing:0.06em; color:#7B7A74; padding-top:8px;">(01) — Background</div>
+        <div>
+          <p style="font-weight:500; font-size:clamp(20px,2.4vw,30px); line-height:1.4; letter-spacing:-0.02em; margin-bottom:36px; text-wrap:pretty;">{p.para1}</p>
+          <p style="font-size:16px; line-height:1.75; color:#3A3A37; max-width:620px; margin-bottom:24px;">{p.para2}</p>
+          <p style="font-size:16px; line-height:1.75; color:#3A3A37; max-width:620px;">{p.para3}</p>
+        </div>
+      </div>
+    </section>
+
+    {rows.map((row) => row.full ? (
+      <div style="width:100%; aspect-ratio:16/9; overflow:hidden; background:#E7E6E2;">
+        <img {...img(row.full, viewAlt(row.start))} class="zoomable" width="1920" height="1080" decoding="async" style={imgStyle}>
+      </div>
+    ) : (
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr)); gap:8px; padding:8px 0;">
+        {row.pair!.map((name, j) => (
+          <div style="aspect-ratio:4/3; overflow:hidden; background:#E7E6E2;">
+            <img {...img(name, viewAlt(row.start + j))} class="zoomable" width="1920" height="1080" decoding="async" style={imgStyle}>
+          </div>
+        ))}
+      </div>
+    ))}
+
+    <section class="reveal" style="padding:clamp(64px,11vw,120px) clamp(20px,5vw,48px); max-width:1320px; margin:0 auto;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:48px 80px;">
+        <div>
+          <div style="font-family:monospace; font-size:13px; letter-spacing:0.06em; color:#7B7A74; margin-bottom:40px;">(02) — Project details</div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,150px),1fr)); gap:32px 24px;">
+            {details.map((d) => <div style="border-top:1px solid #D8D7D2; padding-top:14px;"><div style={`${label} margin-bottom:8px;`}>{d.k}</div><div style="font-size:16px;">{d.v}</div></div>)}
+          </div>
+        </div>
+        <div>
+          <div style="font-family:monospace; font-size:13px; letter-spacing:0.06em; color:#7B7A74; margin-bottom:40px;">(03) — Credits</div>
+          <div style="display:flex; flex-direction:column; gap:28px;">
+            {credits.map((d) => <div style="border-top:1px solid #D8D7D2; padding-top:14px;"><div style={`${label} margin-bottom:8px;`}>{d.k}</div><div style="font-size:16px;">{d.v}</div></div>)}
+          </div>
+        </div>
+      </div>
+    </section>
+  </>
+) : (
+  <>
+    <div style="width:100%; aspect-ratio:16/9; overflow:hidden; background:#E7E6E2; background-image:repeating-linear-gradient(135deg,#DEDDD8 0 1px,transparent 1px 14px); display:flex; align-items:center; justify-content:center;">
+      <span style="font-family:monospace; font-size:12px; letter-spacing:0.2em; color:#A3A29C; text-transform:uppercase;">project photography — coming soon</span>
+    </div>
+    <section class="reveal" style="padding:clamp(64px,11vw,120px) clamp(20px,5vw,48px); max-width:1320px; margin:0 auto;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:32px 64px; align-items:start;">
+        <div style="font-family:monospace; font-size:13px; letter-spacing:0.06em; color:#7B7A74; padding-top:8px;">(01) — Background</div>
+        <div>
+          <p style="font-weight:500; font-size:clamp(20px,2.4vw,30px); line-height:1.4; letter-spacing:-0.02em; margin-bottom:36px; text-wrap:pretty;">This case study is being prepared. Full drawings, photography, and project notes will be published here shortly.</p>
+          <a href="/contact/" class="hov-line" style="display:inline-flex; align-items:center; gap:10px; font-size:14px; font-weight:500; border-bottom:1px solid #B9B8B2; padding-bottom:6px;">enquire about this project <span style="font-size:16px;">→</span></a>
+        </div>
+      </div>
+    </section>
+  </>
+)}
+
+<!-- NEXT -->
+<section class="reveal" style="border-top:1px solid #D8D7D2; padding:clamp(64px,10vw,100px) clamp(20px,5vw,48px);">
+  <div style="max-width:1320px; margin:0 auto; display:flex; align-items:end; justify-content:space-between; gap:40px; flex-wrap:wrap;">
+    <div>
+      <div style={`${label} margin-bottom:18px;`}>Next project</div>
+      <a href={`/project/${next.slug}/`} class="hov-fade" style="font-weight:800; font-size:clamp(36px,5vw,72px); line-height:0.92; letter-spacing:-0.04em; text-transform:lowercase;">{next.title} →</a>
+    </div>
+    <a href="/projects/" class="hov-line" style="font-size:14px; font-weight:500; color:#56554F; border-bottom:1px solid #B9B8B2; padding-bottom:6px; white-space:nowrap;">back to all work</a>
+  </div>
+</section>

@@ -1,0 +1,43 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import ProjectBody from '../../../components/ProjectBody.astro';
+import { projects, displayName, region, type Project } from '../../../data/projects';
+import { SITE, breadcrumbs } from '../../../data/site';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+const { project: p } = Astro.props as { project: Project };
+const name = displayName(p);
+const title = `${name} — ${region(p)} | Bellish Architects`;
+const description = p.para1.slice(0, 158);
+const path = `/project/${p.slug}/`;
+const creativeWork = {
+  '@context': 'https://schema.org',
+  '@type': 'CreativeWork',
+  name,
+  description,
+  url: SITE + path,
+  image: `${SITE}/assets/${p.hero}`,
+  locationCreated: { '@type': 'Place', name: p.location },
+  dateCreated: p.year,
+  creator: { '@type': 'Organization', name: 'Bellish Architects', url: SITE },
+};
+---
+<Base
+  title={title}
+  description={description}
+  path={path}
+  jsonLd={[breadcrumbs({ name: 'Projects', path: '/projects/' }, { name, path }), creativeWork]}
+  preload={`/assets/${p.hero}`}
+>
+  <script is:inline slot="head" src="/assets/lightbox.js" defer></script>
+  <div style="background:#F5F4F2; color:#111110; min-height:100vh;">
+    <Header current="projects" />
+    <ProjectBody project={p} />
+    <Footer />
+  </div>
+</Base>

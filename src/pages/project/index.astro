@@ -1,0 +1,23 @@
+---
+// Generic /project/ URL: the old site showed B House here under a generic title. Kept for existing links.
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ProjectBody from '../../components/ProjectBody.astro';
+import { projects } from '../../data/projects';
+
+const p = projects.find((x) => x.slug === 'b-house')!;
+---
+<Base
+  title="Project — Bellish Architects"
+  description="A closer look at a Bellish Architects project — concept, materials, and detail."
+  path="/project/"
+  preload={`/assets/${p.hero}`}
+>
+  <script is:inline slot="head" src="/assets/lightbox.js" defer></script>
+  <div style="background:#F5F4F2; color:#111110; min-height:100vh;">
+    <Header current="projects" />
+    <ProjectBody project={p} />
+    <Footer />
+  </div>
+</Base>

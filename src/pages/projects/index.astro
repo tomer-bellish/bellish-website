@@ -1,0 +1,195 @@
+---
+import { existsSync } from 'node:fs';
+import Base from '../../layouts/Base.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { projects, STATUS_COLORS, displayName, place } from '../../data/projects';
+import { SITE, breadcrumbs } from '../../data/site';
+
+const PER_PAGE = 6;
+const types = [...new Set(projects.map((p) => p.type))];
+const itemList = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Projects by Bellish Architects',
+  itemListElement: projects.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: displayName(p), url: `${SITE}/project/${p.slug}/` })),
+};
+const assets = new URL('../../../public/assets/', import.meta.url);
+const small = (name: string) => {
+  const s = name.replace(/\.webp$/, '-800.webp');
+  return name.endsWith('.webp') && existsSync(new URL(s, assets)) ? `/assets/${s} 800w, /assets/${name} 1600w` : undefined;
+};
+---
+<Base
+  title="Projects — Bellish Architects"
+  description="Selected works by Bellish Architects — private homes, residential buildings, and commercial projects across Israel."
+  path="/projects/"
+  jsonLd={[breadcrumbs({ name: 'Projects', path: '/projects/' }), itemList]}
+  preload="/assets/b-house-hero-1920.webp"
+>
+  <div style="background:#F5F4F2; color:#111110; min-height:100vh;">
+    <Header current="projects" />
+
+    <!-- PAGE HEADER -->
+    <section class="reveal" style="padding:clamp(72px,12vw,104px) clamp(20px,5vw,48px) 64px; max-width:1320px; margin:0 auto;">
+      <div style="font-size:11.5px; letter-spacing:0.2em; text-transform:uppercase; color:#7B7A74; margin-bottom:28px;">Portfolio</div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr)); gap:24px 48px; align-items:end;">
+        <h1 style="font-weight:800; font-size:clamp(40px,6.5vw,96px); line-height:0.92; letter-spacing:-0.045em; text-transform:lowercase;">Selected Works</h1>
+        <p style="font-size:15px; line-height:1.7; color:#56554F; max-width:380px;">A selection of completed and in-progress projects — from single private houses to residential buildings.</p>
+      </div>
+    </section>
+
+    <!-- FILTER -->
+    <section class="reveal" style="padding:0 clamp(20px,5vw,48px); max-width:1320px; margin:0 auto;">
+      <div style="display:flex; gap:8px; flex-wrap:wrap; border-bottom:1px solid #D8D7D2; padding-bottom:28px;">
+        {['All', ...types].map((t, i) => <button type="button" class:list={['fbtn', { on: i === 0 }]} data-filter={t} aria-pressed={i === 0 ? 'true' : 'false'}>{t}</button>)}
+      </div>
+    </section>
+
+    <!-- GRID -->
+    <section class="reveal" style="padding:56px clamp(20px,5vw,48px) 56px; max-width:1320px; margin:0 auto;">
+      <div class="pgrid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(min(100%,460px),1fr)); gap:48px 40px;">
+        {projects.map((p, n) => {
+          const gal = [p.hero, ...p.gallery];
+          const name = displayName(p);
+          return (
+            <a href={`/project/${p.slug}/`} class="pcard" data-slug={p.slug} data-type={p.type} hidden={n >= PER_PAGE} style="display:block;">
+              <div class="ph" style="position:relative; aspect-ratio:4/3; overflow:hidden; margin-bottom:20px; background:#E7E6E2;">
+                {gal.map((src, i) => (
+                  <img src={`/assets/${src}`} srcset={small(src)} sizes={small(src) ? '(max-width: 1000px) 100vw, 50vw' : undefined}
+                    alt={`${name} by Bellish Architects — ${place(p)}, image ${i + 1}`} class="pimg" width="1600" height="1200"
+                    loading={i === 0 && n < PER_PAGE ? 'eager' : 'lazy'} decoding="async" style={`opacity:${i === 0 ? 1 : 0};`}>
+                ))}
+                <button type="button" class="pnav parrow" aria-label="Previous image" data-step="-1" style="left:14px;">‹</button>
+                <button type="button" class="pnav parrow" aria-label="Next image" data-step="1" style="right:14px;">›</button>
+                <div class="pnav pcount">1 / {gal.length}</div>
+                <div class="pnav pdots">{gal.map((_, i) => <span class:list={{ on: i === 0 }}></span>)}</div>
+              </div>
+              <div style="display:flex; align-items:baseline; justify-content:space-between; gap:16px;">
+                <div>
+                  <div style="display:flex; align-items:center; gap:10px;">
+                    <h3 class="ptitle" style="font-weight:800; font-size:26px; line-height:0.98; letter-spacing:-0.03em; text-transform:lowercase;">{name}</h3>
+                    <span class="status-dot" title={p.status} aria-label={`Status: ${p.status}`} style={`flex:none; width:10px; height:10px; border-radius:50%; background:${STATUS_COLORS[p.status]}; animation:statusPulse 2s ease-in-out infinite;`}></span>
+                  </div>
+                  <div style="display:flex; gap:20px; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#7B7A74; margin-top:10px;">
+                    <span>{p.type}</span><span>{place(p)}</span><span>{p.year}</span>
+                  </div>
+                </div>
+                <span class="ar" style="font-size:18px; color:#111110; flex-shrink:0;">→</span>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- PAGINATION -->
+    <section class="reveal" style="padding:0 clamp(20px,5vw,48px) clamp(72px,12vw,120px); max-width:1320px; margin:0 auto;">
+      <div class="pager" data-per-page={PER_PAGE} style="display:flex; gap:8px; justify-content:center; align-items:center; flex-wrap:wrap; border-top:1px solid #D8D7D2; padding-top:40px;"></div>
+    </section>
+
+    <Footer first="home" />
+  </div>
+</Base>
+
+<script is:inline>
+  (function () {
+    var cards = [].slice.call(document.querySelectorAll('.pcard'));
+    var pager = document.querySelector('.pager');
+    var perPage = +pager.getAttribute('data-per-page');
+    var state = { active: 'All', page: 1 };
+
+    function render() {
+      var list = cards.filter(function (c) { return state.active === 'All' || c.getAttribute('data-type') === state.active; });
+      var total = Math.max(1, Math.ceil(list.length / perPage));
+      state.page = Math.min(Math.max(1, state.page), total);
+      cards.forEach(function (c) { c.hidden = true; });
+      list.slice((state.page - 1) * perPage, state.page * perPage).forEach(function (c) {
+        c.hidden = false;
+        var first = c.querySelector('.pimg'); if (first) first.loading = 'eager';
+      });
+      document.querySelectorAll('.fbtn').forEach(function (b) {
+        var on = b.getAttribute('data-filter') === state.active;
+        b.classList.toggle('on', on); b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      pager.innerHTML = '';
+      pager.style.display = total > 1 ? 'flex' : 'none';
+      if (total < 2) return;
+      function pill(label, page, opts) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'pill' + (opts.on ? ' on' : '') + (opts.off ? ' off' : '');
+        b.textContent = label;
+        if (opts.aria) b.setAttribute('aria-label', opts.aria);
+        if (opts.on) b.setAttribute('aria-current', 'page');
+        b.onclick = function () { if (!opts.off) { state.page = page; render(); } };
+        pager.appendChild(b);
+      }
+      pill('‹', state.page - 1, { off: state.page <= 1, aria: 'Previous page' });
+      for (var n = 1; n <= total; n++) pill(String(n), n, { on: n === state.page });
+      pill('›', state.page + 1, { off: state.page >= total, aria: 'Next page' });
+    }
+
+    document.querySelectorAll('.fbtn').forEach(function (b) {
+      b.onclick = function () { state.active = b.getAttribute('data-filter'); state.page = 1; render(); };
+    });
+
+    // Card carousels: arrows, swipe, dots, counter, circular.
+    function step(card, dir) {
+      var imgs = card.querySelectorAll('.pimg'), dots = card.querySelectorAll('.pdots span');
+      var cur = +(card.getAttribute('data-idx') || 0), len = imgs.length;
+      cur = (cur + dir + len) % len;
+      card.setAttribute('data-idx', cur);
+      imgs.forEach(function (im, i) { if (i === cur) im.loading = 'eager'; im.style.opacity = i === cur ? 1 : 0; });
+      dots.forEach(function (d, i) { d.classList.toggle('on', i === cur); });
+      card.querySelector('.pcount').textContent = (cur + 1) + ' / ' + len;
+    }
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('.pcard [data-step]');
+      if (b) { e.preventDefault(); e.stopPropagation(); step(b.closest('.pcard'), +b.getAttribute('data-step')); }
+    });
+    var sx = 0, sy = 0, swiping = false, swipedAt = 0;
+    document.addEventListener('touchstart', function (e) {
+      if (e.target.closest && e.target.closest('.pcard .ph')) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; swiping = true; }
+    }, { passive: true });
+    document.addEventListener('touchend', function (e) {
+      if (!swiping) return; swiping = false;
+      var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+      if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+        var card = e.target.closest && e.target.closest('.pcard');
+        if (card) { step(card, dx < 0 ? 1 : -1); swipedAt = Date.now(); }
+      }
+    }, { passive: true });
+    document.addEventListener('click', function (e) {
+      if (swipedAt && Date.now() - swipedAt < 400 && e.target.closest && e.target.closest('.pcard')) { e.preventDefault(); e.stopPropagation(); }
+    }, true);
+
+    render();
+  })();
+</script>
+
+<style is:global>
+  .pcard[hidden] { display: none !important; }
+  .fbtn { font-family: 'Archivo', sans-serif; cursor: pointer; font-size: 11.5px; letter-spacing: 0.14em; text-transform: uppercase; padding: 10px 20px; border-radius: 999px; border: 1px solid #CFCEC9; transition: all .25s ease; background: transparent; color: #56554F; }
+  .fbtn.on { background: #111110; color: #F5F4F2; border-color: #111110; }
+  .pill { font-family: 'Archivo', sans-serif; cursor: pointer; font-size: 12px; font-weight: 600; letter-spacing: 0.02em; min-width: 40px; padding: 9px 15px; border-radius: 999px; border: 1px solid #CFCEC9; transition: all .25s ease; background: transparent; color: #56554F; }
+  .pill.on { background: #111110; color: #F5F4F2; border-color: #111110; }
+  .pill.off { color: #C9C8C3; border-color: #E7E6E1; cursor: default; }
+  .pill[aria-label] { color: #111110; }
+  .pill.off[aria-label] { color: #C9C8C3; }
+
+  .pcard .pimg { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity .5s ease; }
+  .parrow { position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border: none; cursor: pointer; background: transparent; color: #FFFFFF; font-size: 40px; line-height: 1; display: flex; align-items: center; justify-content: center; padding: 0; transition: transform .2s ease; z-index: 3; text-shadow: 0 1px 10px rgba(0,0,0,0.55); -webkit-tap-highlight-color: transparent; }
+  .pcount { position: absolute; bottom: 14px; right: 16px; z-index: 3; font-family: monospace; font-size: 12px; letter-spacing: 0.08em; color: #F5F4F2; background: rgba(17,17,16,0.55); padding: 4px 10px; border-radius: 999px; }
+  .pdots { position: absolute; bottom: 16px; left: 16px; z-index: 3; display: flex; gap: 6px; }
+  .pdots span { width: 6px; height: 6px; border-radius: 999px; background: rgba(245,244,242,0.45); transition: background .3s ease; }
+  .pdots span.on { background: #F5F4F2; }
+  .pnav { opacity: 0; transition: opacity .28s ease; }
+  .pnav.parrow { transition: transform .2s ease; }
+  .pcard:hover .pnav { opacity: 1; }
+  .parrow:hover { transform: translateY(-50%) scale(1.18) !important; }
+  @media (hover: none) { .pnav { opacity: 1; } }
+  .pcard .ar { transition: transform .35s ease; }
+  .pcard:hover .ar { transform: translateX(6px); }
+  .ptitle { transition: opacity .3s ease; }
+  .pcard:hover .ptitle { opacity: 0.55; }
+</style>

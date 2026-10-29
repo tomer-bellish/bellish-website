@@ -34,6 +34,11 @@ body.dark ::selection { background: #F5F4F2; color: #111110; }
 @keyframes statusPulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.78); } }
 @media (prefers-reduced-motion: reduce) { .status-dot { animation: none !important; } }
 
+/* Hover utilities. !important because the elements carry inline styles (kept verbatim from the design). */
+.hov-ink:hover { color: #111110 !important; }
+.hov-line:hover { border-bottom-color: #111110 !important; }
+.hov-fade:hover { opacity: 0.55 !important; }
+
 /* ── Header ── */
 .site-header { z-index: 50; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 20px; }
 .site-header.light { position: sticky; top: 0; padding: 16px clamp(20px,5vw,48px); background: rgba(245,244,242,0.72); backdrop-filter: blur(14px); }
