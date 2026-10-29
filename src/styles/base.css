@@ -40,6 +40,9 @@ body.dark ::selection { background: #F5F4F2; color: #111110; }
 .hov-line:hover { border-bottom-color: #111110 !important; }
 .hov-fade:hover { opacity: 0.55 !important; }
 
+/* Gallery images open the lightbox from the keyboard; their frames clip, so the focus ring is drawn inside. */
+img.zoomable:focus-visible { outline: 3px solid #111110; outline-offset: -3px; }
+
 /* Skip link: off-screen until focused with the keyboard. */
 .skip { position: absolute; left: 16px; top: -100px; z-index: 100; padding: 12px 18px; background: #111110; color: #F5F4F2; font-size: 14px; font-weight: 600; }
 .skip:focus { top: 16px; }
@@ -72,6 +75,8 @@ body.dark ::selection { background: #F5F4F2; color: #111110; }
 .site-footer .top { max-width: 1320px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap; }
 .site-footer .top > img { height: clamp(32px,6vw,44px); width: auto; display: block; filter: invert(1); }
 .site-footer .cols { display: flex; gap: 64px; flex-wrap: wrap; font-size: 13px; line-height: 2; }
-.site-footer .label { color: #56554F; letter-spacing: 0.14em; text-transform: uppercase; font-size: 11px; margin-bottom: 10px; }
+.site-footer .label { color: #7D7C77; letter-spacing: 0.14em; text-transform: uppercase; font-size: 11px; margin-bottom: 10px; }
 .site-footer .cols a { display: block; }
+.site-footer .cols .linklike { display: block; background: none; border: none; padding: 0; margin: 0; color: inherit; font: inherit; line-height: inherit; letter-spacing: inherit; cursor: pointer; text-align: left; }
+.site-footer .cols .linklike:hover { color: #F5F4F2; }
 .site-footer .bottom { max-width: 1320px; margin: 48px auto 0; padding-top: 24px; border-top: 1px solid #262624; display: flex; justify-content: space-between; font-size: 11.5px; letter-spacing: 0.08em; flex-wrap: wrap; gap: 12px; }

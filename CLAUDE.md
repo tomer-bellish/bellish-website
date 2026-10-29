@@ -20,6 +20,11 @@ This folder is the clone of `github.com/tomer-bellish/bellish-website` (branch `
 - `node tools/seo-parity.mjs [path…]` after `npm run build`: diffs title/meta/canonical/og/JSON-LD of docs/ vs dist/.
   In Git Bash pass paths with `MSYS_NO_PATHCONV=1`.
 - Visual parity is checked element-by-element (position, size, font, color) old vs new at 1280px and 375px.
+- Consent (new site): `public/assets/cookie-consent.js` is the only place that loads Google — GTM, GA4 and
+  Preferred Sources are injected in its `loadTags()` after "Accept". Never add a third-party script to `Base.astro`
+  directly; add it there and list it in the cookie policy. Compliance status and owner to-dos: [COMPLIANCE.md](COMPLIANCE.md).
+- Text colours must keep ≥ 4.5:1 (secondary grey on paper is `#71706B`, not the design's `#7B7A74`); axe-core
+  (`https://cdn.jsdelivr.net/npm/axe-core@4.14.0/axe.min.js`) should report 0 violations on every page.
 
 ## How the pages are built (read before editing any `docs/**/index.html`)
 Each page is a Claude Design bundle:

@@ -12,7 +12,8 @@
       status = s;
       btn.textContent = s === 'sending' ? 'sending…' : s === 'error' ? 'try again' : idle;
       err.textContent = s === 'error' ? form.getAttribute('data-error-msg') : '';
-      if (s === 'sent') { form.hidden = true; sent.hidden = false; }
+      // Move focus to the confirmation so keyboard and screen-reader users hear it (WCAG 4.1.3 / 2.4.3).
+      if (s === 'sent') { form.hidden = true; sent.hidden = false; sent.tabIndex = -1; sent.focus(); }
     }
     form.addEventListener('submit', function (e) {
       e.preventDefault();
