@@ -39,7 +39,7 @@ This folder is the clone of `github.com/tomer-bellish/bellish-website`.
 
 ## Deploy
 GitHub Pages with Source = **GitHub Actions**: `.github/workflows/deploy.yml` builds, runs `npm run check` and
-publishes on every push to `main` (about 3 minutes). If the check fails nothing is published, the live site stays as
+publishes on every push to `main` (about 1.5 minutes; the check itself ~35 s). If the check fails nothing is published, the live site stays as
 it was, and GitHub emails the owner. The owner chose Claude to push from here; still confirm before each push — it goes live.
 GitHub handles HTTPS and the www redirect; custom HTTP headers are not possible.
-Rollback: `git revert` the bad commit and push — the workflow redeploys in about 3 minutes.
+Rollback: `git revert` the bad commit and push — the workflow redeploys in about 1.5 minutes.
