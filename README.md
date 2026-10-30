@@ -29,7 +29,7 @@ Project slugs: aa-house, ak-house, b-house, g-hotel, h-house, inside-out-house, 
 - Google **Preferred Sources** button in footer (`publisher.js` + `assets/preferred-source.js`) — inactive until Google lists the domain.
 - Accessibility toolbar (bottom-right), Israeli Standard 5568 / WCAG AA.
 - Schema.org JSON-LD: Organization with Hebrew `alternateName`, two LocalBusiness offices, Person (Tomer, Jenine), ItemList on /projects/.
-- Favicon 96×96 (`sizes="96x96"`) on all pages.
+- Favicon on all pages, the same icon as app.bellish.co.il: `assets/favicon.svg` (its file), with `assets/favicon.png` (96×96, `sizes="96x96"`) and `/favicon.ico` (16/32/48) rendered from it.
 - Images: WebP with `srcset`/`sizes`; heroes `loading="eager"`.
 - Project gallery lightbox: arrows, keyboard, swipe, circular loop, counter.
 - `sitemap.xml`, `robots.txt`.
