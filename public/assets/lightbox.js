@@ -60,13 +60,20 @@
     }
   }
 
-  function step(d) { if (imgs.length < 2) return; idx = (idx + d + imgs.length) % imgs.length; render(); }
+  function step(d) { if (imgs.length < 2) return; idx = (idx + d + imgs.length) % imgs.length; seen[idx] = 1; render(); }
+
+  // GA4 (only with consent): gallery_open, and on close how many different images were viewed.
+  function track(name, params) { var c = window.__bellishConsent; if (c && c.track) c.track(name, params); }
+  function project() { var m = document.querySelector('main[data-project]'); return m ? m.getAttribute('data-project') : ''; }
+  var seen = {};
 
   var opener = null;
   function openLb(im) {
     imgs = Array.prototype.slice.call(document.querySelectorAll('img.zoomable'));
     idx = Math.max(0, imgs.indexOf(im));
     opener = im;
+    seen = {}; seen[idx] = 1;
+    track('gallery_open', { project_name: project() });
     render();
     lb.style.display = 'flex';
     document.body.style.overflow = 'hidden';
@@ -75,6 +82,7 @@
   }
 
   function closeLb() {
+    track('gallery_close', { project_name: project(), images_viewed: Object.keys(seen).length });
     lb.style.opacity = '0'; lbImg.style.transform = 'scale(.96)';
     document.body.style.overflow = '';
     setTimeout(function () { lb.style.display = 'none'; }, 300);

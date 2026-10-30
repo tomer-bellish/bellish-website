@@ -3,7 +3,9 @@
    visitor accepts ("basic" consent mode), so no data leaves the browser before a choice is made.
    The choice is stored in localStorage and asked again after 12 months.
    API: window.__bellishConsent.open()   — re-open the banner (any element with data-consent-open also does)
-        window.__bellishConsent.status() — 'granted' | 'denied' | null                                      */
+        window.__bellishConsent.status() — 'granted' | 'denied' | null
+        window.__bellishConsent.track(name, params) — GA4 event, sent only while consent is granted (never queued)
+   A 'bellish-consent' event (detail: 'granted' | 'denied') fires on document whenever the choice changes.   */
 (function () {
   if (window.__bellishConsent) return;
   var KEY = 'bellish-consent';
@@ -73,6 +75,13 @@
     window.dataLayer.push({ event: v === 'granted' ? 'consent_accepted' : 'consent_declined' });
     if (v === 'granted') loadTags();
     else clearAnalyticsCookies();
+    try { document.dispatchEvent(new CustomEvent('bellish-consent', { detail: v })); } catch (e) {}
+  }
+
+  /* Site events (assets/track.js, lightbox.js, forms): nothing is sent, or kept for later, without consent.
+     Never pass personal data here — names, emails, phone numbers or what someone wrote. */
+  function track(name, params) {
+    if (stored === 'granted') gtag('event', name, params || {});
   }
 
   var stored = read();
@@ -162,6 +171,7 @@
 
   window.__bellishConsent = {
     open: show,
-    status: function () { return stored; }
+    status: function () { return stored; },
+    track: track
   };
 })();

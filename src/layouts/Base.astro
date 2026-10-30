@@ -60,6 +60,8 @@ const tabnavConfig = JSON.stringify({ language: 'us-en', color: '#000000', butto
   <link rel="preload" href="/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
   {preload && <link rel="preload" as="image" href={preload.href} imagesrcset={preload.srcset} imagesizes={preload.srcset && preload.sizes} fetchpriority="high">}
   <slot name="head" />
+  <!-- Site events for GA4; sends nothing without consent (cookie-consent.js). -->
+  <script is:inline src="/assets/track.js" defer></script>
   <script is:inline src="/assets/tabnav-widget.js" tnv-data-config={tabnavConfig} defer></script>
 </head>
 <body class={bodyClass}>

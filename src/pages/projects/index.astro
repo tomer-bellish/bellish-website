@@ -99,6 +99,8 @@ const CARD_SIZES = '(max-width: 1000px) 100vw, 50vw';
     var pager = document.querySelector('.pager');
     var perPage = +pager.getAttribute('data-per-page');
     var state = { active: 'All', page: 1 };
+    // GA4 (only with consent): filter_projects, projects_page, card_carousel (once per card).
+    function track(name, params) { var c = window.__bellishConsent; if (c && c.track) c.track(name, params); }
 
     function render() {
       var list = cards.filter(function (c) { return state.active === 'All' || c.getAttribute('data-type') === state.active; });
@@ -122,7 +124,7 @@ const CARD_SIZES = '(max-width: 1000px) 100vw, 50vw';
         b.textContent = label;
         if (opts.aria) b.setAttribute('aria-label', opts.aria);
         if (opts.on) b.setAttribute('aria-current', 'page');
-        b.onclick = function () { if (!opts.off) { state.page = page; render(); } };
+        b.onclick = function () { if (!opts.off) { state.page = page; render(); track('projects_page', { page_number: page }); } };
         pager.appendChild(b);
       }
       pill('‹', state.page - 1, { off: state.page <= 1, aria: 'Previous page' });
@@ -131,7 +133,7 @@ const CARD_SIZES = '(max-width: 1000px) 100vw, 50vw';
     }
 
     document.querySelectorAll('.fbtn').forEach(function (b) {
-      b.onclick = function () { state.active = b.getAttribute('data-filter'); state.page = 1; render(); };
+      b.onclick = function () { state.active = b.getAttribute('data-filter'); state.page = 1; render(); track('filter_projects', { filter_value: state.active }); };
     });
 
     // Card carousels: arrows, swipe, dots, counter, circular.
@@ -150,6 +152,7 @@ const CARD_SIZES = '(max-width: 1000px) 100vw, 50vw';
     });
     function step(card, dir) {
       hydrate(card);
+      if (!card.hasAttribute('data-tracked')) { card.setAttribute('data-tracked', ''); track('card_carousel', { project_name: card.getAttribute('data-slug') }); }
       var imgs = card.querySelectorAll('.pimg'), dots = card.querySelectorAll('.pdots span');
       var cur = +(card.getAttribute('data-idx') || 0), len = imgs.length;
       cur = (cur + dir + len) % len;

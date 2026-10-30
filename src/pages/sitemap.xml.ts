@@ -9,7 +9,7 @@ const PAGES: [string, string, string][] = [
   ['/studio/', '2026-07-08', '0.6'],
   ['/career/', '2026-07-08', '0.5'],
   ['/contact/', '2026-07-08', '0.6'],
-  ['/cookie-policy/', '2026-07-08', '0.3'],
+  ['/cookie-policy/', '2026-10-30', '0.3'],
   ['/accessibility/', '2026-07-08', '0.3'],
 ];
 

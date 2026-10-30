@@ -38,7 +38,7 @@ const creativeWork = {
   <script is:inline slot="head" src="/assets/lightbox.js" defer></script>
   <div style="background:#F5F4F2; color:#111110; min-height:100vh;">
     <Header current="projects" />
-    <main id="main">
+    <main id="main" data-project={p.slug} data-project-type={p.type} data-project-status={p.status} data-project-region={region(p)}>
       <ProjectBody project={p} />
     </main>
     <Footer />

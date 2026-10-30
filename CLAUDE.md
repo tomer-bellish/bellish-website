@@ -36,6 +36,10 @@ This folder is the clone of `github.com/tomer-bellish/bellish-website`.
 - Consent: `public/assets/cookie-consent.js` is the only place that loads Google — GA4 and Preferred Sources are
   injected in its `loadTags()` after "Accept". GTM was removed (its container GTM-T3H6PWPH was empty). Never add a
   third-party script to `Base.astro` directly; add it there and list it in the cookie policy.
+- GA4 events go through `window.__bellishConsent.track(name, params)` (sends nothing without consent). Clicks, project
+  views, scroll depth and 404 are in `public/assets/track.js`; forms in FormScript, gallery in `lightbox.js`, filter /
+  pager / card carousel on the projects page. Never send personal data (names, emails, phones, message text). The
+  event list and the GA custom dimensions are in PLAN.md 4.1.
 - Text colours must keep ≥ 4.5:1 (secondary grey on paper is `#71706B`, not the design's `#7B7A74`); UI borders ≥ 3:1.
   axe-core (4.14.0, a dev dependency) must report 0 violations on every page — `npm run check` enforces it.
 - Run `npm run build && npm run check` before every commit that changes the site; a failure blocks the deploy anyway.

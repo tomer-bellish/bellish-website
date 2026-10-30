@@ -1,6 +1,8 @@
 ---
 // Formspree forms (careers, contact). The form also has action/method, so it still submits without JS.
 // window.BELLISH_FORM_ENDPOINT overrides the endpoint (testing).
+// GA4 events (only with consent): form_start, generate_lead (contact) / job_application (career, with the
+// position chosen), form_error. Never what the visitor typed.
 ---
 <script is:inline>
   document.querySelectorAll('form[data-endpoint]').forEach(function (form) {
@@ -8,6 +10,12 @@
     var err = form.querySelector('[data-error]');
     var sent = document.getElementById(form.getAttribute('data-sent'));
     var idle = btn.textContent, status = 'idle';
+    var formName = form.getAttribute('data-sent').replace(/-sent$/, ''); // 'contact' | 'career'
+    function track(name, params) { var c = window.__bellishConsent; if (c && c.track) c.track(name, params); }
+    form.addEventListener('focusin', function once() {
+      form.removeEventListener('focusin', once);
+      track('form_start', { form_name: formName });
+    });
     function set(s) {
       status = s;
       btn.textContent = s === 'sending' ? 'sending…' : s === 'error' ? 'try again' : idle;
@@ -19,9 +27,17 @@
       e.preventDefault();
       if (status === 'sending') return;
       set('sending');
+      var position = form.elements.position ? form.elements.position.value : '';
+      function failed() { set('error'); track('form_error', { form_name: formName }); }
       fetch(window.BELLISH_FORM_ENDPOINT || form.getAttribute('data-endpoint'), { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } })
-        .then(function (res) { if (res.ok) { try { form.reset(); } catch (x) {} set('sent'); } else set('error'); })
-        .catch(function () { set('error'); });
+        .then(function (res) {
+          if (!res.ok) return failed();
+          try { form.reset(); } catch (x) {}
+          set('sent');
+          if (formName === 'career') track('job_application', { form_name: formName, position: position });
+          else track('generate_lead', { form_name: formName });
+        })
+        .catch(failed);
     });
   });
 </script>

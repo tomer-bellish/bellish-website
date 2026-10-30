@@ -121,7 +121,7 @@ const credits = [detail('Bellish design team', p.credits.team), detail('Collabor
   <div style="max-width:1320px; margin:0 auto; display:flex; align-items:end; justify-content:space-between; gap:40px; flex-wrap:wrap;">
     <div>
       <div style={`${label} margin-bottom:18px;`}>Next project</div>
-      <a href={`/project/${next.slug}/`} class="hov-fade" style="font-weight:800; font-size:clamp(36px,5vw,72px); line-height:0.92; letter-spacing:-0.04em; text-transform:lowercase;">{next.title} →</a>
+      <a href={`/project/${next.slug}/`} class="hov-fade" data-next-project={p.slug} style="font-weight:800; font-size:clamp(36px,5vw,72px); line-height:0.92; letter-spacing:-0.04em; text-transform:lowercase;">{next.title} →</a>
     </div>
     <a href="/projects/" class="hov-line" style="font-size:14px; font-weight:500; color:#56554F; border-bottom:1px solid #B9B8B2; padding-bottom:6px; white-space:nowrap;">back to all work</a>
   </div>
