@@ -116,10 +116,10 @@ GitHub Pages לא מאפשר להגדיר כותרות HTTP.
   - צפייה בפרויקט: `view_project`.
   - סגירת הגלריה: `gallery_close`, עם `images_viewed`.
 - **נוסף בדרך:** מספר הטלפון בעמוד צור קשר היה טקסט רגיל. עכשיו הוא קישור `tel:`, כדי שאפשר יהיה ללחוץ עליו בנייד וגם למדוד את הלחיצות. המראה לא השתנה.
-- ⏳ **אחרי ה-push, בממשק GA:**
-  - **אירועי מפתח:** לסמן את `generate_lead`, `job_application`, `contact_click` ו-`directions_click`.
-  - **מדדים:** להגדיר את `images_viewed`.
-  - **custom dimensions:** להגדיר את `project_name`, `project_type`, `project_status`, `project_region`, `form_name`, `position`, `contact_method`, `link_location`, `office`, `filter_value`, `page_number` ו-`missing_path`.
+- **בממשק GA (30.10.2026):**
+  - ✔ **custom dimensions:** הוגדרו 12, כולם ברמת אירוע (Event): `project_name`, `project_type`, `project_status`, `project_region`, `form_name`, `position`, `contact_method`, `link_location`, `office`, `filter_value`, `page_number` ו-`missing_path`. הם אוספים נתונים רק מרגע ההגדרה.
+  - ✔ **custom metric:** `images_viewed` (Images viewed), ביחידת Standard.
+  - ⏳ **אירועי מפתח:** `generate_lead`, `job_application`, `contact_click` ו-`directions_click`. בגרסה הנוכחית של GA אין כפתור ליצירת אירוע מפתח מראש. מסמנים כוכב ליד אירוע ברשימת "Recent events", ואירוע מופיע שם רק אחרי ש-GA קיבל אותו לפחות פעם אחת, תוך עד 24 שעות.
 
 **עקרונות:**
 - הכול נמדד רק אחרי "Accept", כמו היום. מי שדוחה לא נמדד בכלל, ולכן המספרים ב-GA מתארים רק את מי שהסכים. הם טובים להשוואות ולמגמות, לא לספירה מלאה של מבקרים.
@@ -290,7 +290,7 @@ GitHub Pages לא מאפשר להגדיר כותרות HTTP.
 2. ✔ **הגדרות GA בממשק** (מ-4.1). בוצע ב-29.10.2026, חוץ מאירועי המפתח וסינון התעבורה הפנימית.
 3. ✔ **4.2 התיאורים ו-4.4 המשרות** (30.10.2026).
 4. ✔ **4.3 ה-honeypot** (30.10.2026).
-5. ✔ **4.1 מדידת האירועים**, יחד עם המשפט במדיניות העוגיות (30.10.2026). נשארו ההגדרות בממשק GA אחרי ה-push.
+5. ✔ **4.1 מדידת האירועים**, יחד עם המשפט במדיניות העוגיות (30.10.2026). ה-dimensions וה-metric מוגדרים ב-GA. נשאר לסמן את אירועי המפתח, אחרי שיגיעו ל-GA.
 6. **4.5 התמונות:** מבחן, אישור שלך, ואז כל התמונות.
 
 ### מה צריך ממך
