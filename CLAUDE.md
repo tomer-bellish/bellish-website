@@ -11,7 +11,8 @@ This folder is the clone of `github.com/tomer-bellish/bellish-website`.
   hidden `_gotcha` spam trap (`<div class="hp">`, hidden in base.css); `npm run check` fails without it.
 - `src/data/projects.ts` — every project, in site order. Project pages, the grid, ItemList, breadcrumbs, next-project
   links and the sitemap all derive from it. `team.ts` — Studio team. `site.ts` — Organization JSON-LD.
-- `src/lib/images.ts` — srcset helper (adds the `-800.webp` variant only if the file exists).
+- `src/lib/images.ts` — srcset helper: lists whichever of `-800/-1200/-1920/-2880.webp` exist, plus the original at
+  its real width (read from the WebP header). `tools/images.mjs` (`npm run images`) writes those sizes.
 - `public/` — assets (images, scripts), fonts, CNAME, robots.txt, favicon.ico, 404.html, and the static
   `/projects/<slug>/` redirect pages. Other old-URL redirects live in `redirects` in `astro.config.mjs`.
 - `npm run build` → `dist/`. Preview configs: `astro` (dev server, 4321) and `dist` (`tools/serve.mjs`, built site, 8081).
@@ -24,8 +25,8 @@ This folder is the clone of `github.com/tomer-bellish/bellish-website`.
 
 ## Changing content
 - New project: entry in `src/data/projects.ts` (first image = hero, `updated` = today, `description` = one complete
-  sentence of 120–155 characters for Google) + WebP images in `public/assets/`, ideally with an 800px `-800.webp`
-  variant for each. Nothing else to edit.
+  sentence of 120–155 characters for Google) + WebP images in `public/assets/`, then `npm run images` to write the
+  smaller sizes (WebP q92, only where lighter than the original; existing files are kept). Nothing else to edit.
 - Team: `src/data/team.ts`. Contact details: `src/data/site.ts` (JSON-LD), the contact page and the footer.
 - Open positions: `src/data/jobs.ts` only (list, role count, form options, page description). "updated <month>" is
   the build month; a scheduled run in `deploy.yml` rebuilds on the 1st of each month to keep it current.
