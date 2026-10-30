@@ -142,7 +142,9 @@ GitHub Pages לא מאפשר להגדיר כותרות HTTP.
 
 **מדיניות העוגיות:** להוסיף משפט שמפרט שנמדדים קליקים ושליחת טפסים, בלי התוכן שלהם.
 
-### 4.2 התיאורים בגוגל
+### 4.2 התיאורים בגוגל ✔ (30.10.2026)
+
+✔ **בוצע:** אישרת את כל הטיוטות. המשרד השני מופיע בתיאורים כ-Tel Aviv, כמו בכותרת בעמוד צור קשר, כי הוא על גבול תל אביב. הכתובת עצמה נשארת רמת השרון. בטבלה למטה הנוסח הסופי.
 
 **מה מצאתי:**
 - התיאור של כל עמוד פרויקט הוא פשוט 158 התווים הראשונים של הפסקה הראשונה. לכן ב-10 מתוך 11 הפרויקטים הוא נקטע באמצע משפט.
@@ -151,7 +153,7 @@ GitHub Pages לא מאפשר להגדיר כותרות HTTP.
 
 **הפתרון:** שדה `description` חדש לכל פרויקט ב-`projects.ts`, עם משפט שלם באורך 120–155 תווים. אותו טקסט ייכנס גם לתיאור בשיתוף (og:description) ול-Schema. **תמונת הלוגו בקישורים (`og-logo.png`) לא משתנה.**
 
-**הטיוטות לאישורך:**
+**הנוסח הסופי:**
 
 | עמוד | תיאור חדש | תווים |
 |---|---|---|
@@ -166,8 +168,8 @@ GitHub Pages לא מאפשר להגדיר כותרות HTTP.
 | KV House | A private retreat among the palms of Kinneret Moshava, with suite-like rooms and a social core open to the Sea of Galilee. By Bellish Architects. | 145 |
 | AK House | A hillside home in Poriya that steps down toward the Sea of Galilee, shaded by two interlocking pergolas. By Bellish Architects. | 128 |
 | AA House | A single-storey family home in Kibbutz Alumot, opening toward the sweeping view of the Yavne'el valley. By Bellish Architects. | 126 |
-| בית (רשות) | Bellish Architects is a young architecture studio in Tiberias and Ramat HaSharon, designing private homes, residential, office and hospitality buildings. | 153 |
-| צור קשר | Contact Bellish Architects: offices in Tiberias (Kidmat HaGalil) and Ramat HaSharon. Call 04-602-9585, email office@bellish.co.il or send us a message. | 151 |
+| בית | Bellish Architects is a young architecture studio in Tiberias and Tel Aviv, designing private homes, residential, office and hospitality buildings. | 147 |
+| צור קשר | Contact Bellish Architects: offices in Tiberias (Kidmat HaGalil) and Tel Aviv (Big Fashion Glilot). Call 04-602-9585 or email office@bellish.co.il. | 147 |
 | הצהרת נגישות | Accessibility statement for bellish.co.il: Israeli Standard 5568 (WCAG 2.0 AA), the adjustments made, known limitations and how to contact us. | 142 |
 
 כל העובדות בטיוטות לקוחות מהטקסט של הפרויקט עצמו. התיאור של הקריירה יתעדכן יחד עם המשרות (4.4).
@@ -190,9 +192,16 @@ GitHub Pages לא מאפשר להגדיר כותרות HTTP.
 **ההמלצה:** להתחיל ב-א׳. אם אחרי כמה שבועות עדיין מגיע ספאם, לעבור ל-ב׳. ג׳ רק אם תעדיף אותו למרות החסרונות.
 **מגבלה:** בוטים ששולחים ישר לכתובת של Formspree, בלי לעבור באתר, עוקפים את ה-honeypot. Formspree מסנן חלק מהם בעצמו.
 
-### 4.4 המשרות הפתוחות
+### 4.4 המשרות הפתוחות ✔ (30.10.2026)
 
-**היום:** architect (Full-time, Tel Aviv), interior designer (Full-time, Tel Aviv) ו-urban planner (Full-time, Tiberias). מעליהן הכיתוב "3 roles · updated June 2026", ובטופס יש רשימת בחירה עם שלוש המשרות ועוד "Open application".
+✔ **בוצע:**
+- המשרות נשארו כמו שהן, ו-"Open application" נשאר בטופס. הכול עבר ל-`src/data/jobs.ts`.
+- הכיתוב מעל הרשימה מציג את חודש הבנייה, למשל "3 roles · updated October 2026".
+- ב-`deploy.yml` נוספה בנייה אוטומטית ב-1 בכל חודש, כדי שהתאריך יתעדכן לבד.
+- **שים לב:** GitHub עוצר ריצות מתוזמנות אחרי 60 יום בלי שום עדכון למאגר, ושולח מייל לפני כן. מחזירים אותן בלחיצה אחת ב-Actions.
+- אם יום אחד לא יהיו משרות פתוחות, מרוקנים את הרשימה, והעמוד יציג "No open positions right now".
+
+**לפני השינוי:** architect (Full-time, Tel Aviv), interior designer (Full-time, Tel Aviv) ו-urban planner (Full-time, Tiberias). מעליהן הכיתוב "3 roles · updated June 2026", ובטופס יש רשימת בחירה עם שלוש המשרות ועוד "Open application".
 
 **השינוי:** קובץ נתונים חדש, `src/data/jobs.ts`, ובו לכל משרה שם, היקף ומשרד. ממנו ייבנו אוטומטית רשימת המשרות, הכיתוב "N roles · updated <חודש שנה>", האפשרויות בטופס והתיאור של העמוד בגוגל. מעכשיו, החלפת משרות היא עריכה של קובץ אחד.
 
@@ -247,7 +256,7 @@ GitHub Pages לא מאפשר להגדיר כותרות HTTP.
 
 1. ✔ **4.6 הבדיקה האוטומטית**, כרשת ביטחון לכל מה שבא אחריה.
 2. ✔ **הגדרות GA בממשק** (מ-4.1). בוצע ב-29.10.2026, חוץ מאירועי המפתח וסינון התעבורה הפנימית.
-3. **4.2 התיאורים ו-4.4 המשרות**, אחרי שתאשר את הטקסטים.
+3. ✔ **4.2 התיאורים ו-4.4 המשרות** (30.10.2026).
 4. **4.3 ה-honeypot.**
 5. **4.1 מדידת האירועים**, יחד עם המשפט במדיניות העוגיות.
 6. **4.5 התמונות:** מבחן, אישור שלך, ואז כל התמונות.
@@ -255,9 +264,9 @@ GitHub Pages לא מאפשר להגדיר כותרות HTTP.
 ### מה צריך ממך
 
 1. **GA:** לאשר את רשימת האירועים או למחוק ממנה. לשלוח את כתובות ה-IP של המשרדים (רשות). *(ההגדרות בממשק כבר בוצעו.)*
-2. **תיאורים:** לאשר או לתקן את הטיוטות. להחליט אם המשרד השני מופיע באתר כ-Ramat HaSharon או כ-Tel Aviv.
+2. ✔ **תיאורים:** אושרו. המשרד השני מופיע כ-Tel Aviv.
 3. **ספאם:** לבחור בין א׳, ב׳ ו-ג׳. וגם: מגיע היום ספאם, ובערך כמה?
-4. **משרות:** הרשימה החדשה, ולכל משרה שם, היקף (מלאה או חלקית) ומשרד. להחליט אם להשאיר את "Open application", ואם רוצים תיאורים ל-Google Jobs.
+4. ✔ **משרות:** נשארו כמו שהן, עם "Open application". התאריך מתעדכן לבד כל חודש.
 5. **תמונות:** אם יש קובצי מקור מקוריים, ואישור להריץ את המבחן.
 6. ✔ **בדיקה אוטומטית:** אושרה ובוצעה.
 

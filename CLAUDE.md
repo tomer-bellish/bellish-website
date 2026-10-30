@@ -22,9 +22,14 @@ This folder is the clone of `github.com/tomer-bellish/bellish-website`.
   that commit. Local-only branches: `astro` (where the rebuild was done), `handoff`, `backup/site-2026-07-04`.
 
 ## Changing content
-- New project: entry in `src/data/projects.ts` (first image = hero, `updated` = today) + WebP images in
-  `public/assets/`, ideally with an 800px `-800.webp` variant for each. Nothing else to edit.
+- New project: entry in `src/data/projects.ts` (first image = hero, `updated` = today, `description` = one complete
+  sentence of 120–155 characters for Google) + WebP images in `public/assets/`, ideally with an 800px `-800.webp`
+  variant for each. Nothing else to edit.
 - Team: `src/data/team.ts`. Contact details: `src/data/site.ts` (JSON-LD), the contact page and the footer.
+- Open positions: `src/data/jobs.ts` only (list, role count, form options, page description). "updated <month>" is
+  the build month; a scheduled run in `deploy.yml` rebuilds on the 1st of each month to keep it current.
+- The second office is labelled **Tel Aviv** on the site (it is on the border); its address is Glilot, Big Fashion
+  Tower, Ramat HaSharon.
 
 ## Rules
 - Consent: `public/assets/cookie-consent.js` is the only place that loads Google — GA4 and Preferred Sources are

@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import FormScript from '../../components/FormScript.astro';
+import { jobs, updatedMonth, careerDescription } from '../../data/jobs';
 
 const jsonLd = [
   {
@@ -27,7 +28,7 @@ const jsonLd = [
 ---
 <Base
   title="Careers — Bellish Architects"
-  description="Open positions at Bellish Architects — architect, interior designer, and urban planner. Join a young, growing studio."
+  description={careerDescription}
   path="/career/"
   jsonLd={jsonLd}
 >
@@ -67,29 +68,20 @@ const jsonLd = [
   <section class="reveal" style="padding:0 48px 120px; max-width:1320px; margin:0 auto;">
     <div style="display:flex; align-items:baseline; justify-content:space-between; border-bottom:1px solid #D8D7D2; padding-bottom:18px; margin-bottom:8px; gap:24px; flex-wrap:wrap;">
       <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(28px,3vw,44px); letter-spacing:-0.035em; text-transform:lowercase;">open positions</h2>
-      <span style="font-size:11.5px; letter-spacing:0.14em; text-transform:uppercase; color:#71706B;">3 roles · updated June 2026</span>
+      <span style="font-size:11.5px; letter-spacing:0.14em; text-transform:uppercase; color:#71706B;">{jobs.length} {jobs.length === 1 ? 'role' : 'roles'} · updated {updatedMonth}</span>
     </div>
 
-    <a href="#apply" class="role" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px 24px; padding:28px 0; border-bottom:1px solid #E2E1DD;">
-      <h3 style="flex:1 1 200px; font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(24px,2.4vw,34px); letter-spacing:-0.03em; text-transform:lowercase;">architect</h3>
-      <div class="rmeta" style="font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#71706B;">Full-time</div>
-      <div class="rmeta" style="font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#71706B;">Tel Aviv</div>
-      <span class="rapply" style="margin-left:auto; display:flex; align-items:center; gap:10px; font-size:13px; font-weight:500; white-space:nowrap;">apply <span class="ra" style="font-size:16px;">→</span></span>
-    </a>
-
-    <a href="#apply" class="role" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px 24px; padding:28px 0; border-bottom:1px solid #E2E1DD;">
-      <h3 style="flex:1 1 200px; font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(24px,2.4vw,34px); letter-spacing:-0.03em; text-transform:lowercase;">interior designer</h3>
-      <div class="rmeta" style="font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#71706B;">Full-time</div>
-      <div class="rmeta" style="font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#71706B;">Tel Aviv</div>
-      <span class="rapply" style="margin-left:auto; display:flex; align-items:center; gap:10px; font-size:13px; font-weight:500; white-space:nowrap;">apply <span class="ra" style="font-size:16px;">→</span></span>
-    </a>
-
-    <a href="#apply" class="role" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px 24px; padding:28px 0; border-bottom:1px solid #E2E1DD;">
-      <h3 style="flex:1 1 200px; font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(24px,2.4vw,34px); letter-spacing:-0.03em; text-transform:lowercase;">urban planner</h3>
-      <div class="rmeta" style="font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#71706B;">Full-time</div>
-      <div class="rmeta" style="font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#71706B;">Tiberias</div>
-      <span class="rapply" style="margin-left:auto; display:flex; align-items:center; gap:10px; font-size:13px; font-weight:500; white-space:nowrap;">apply <span class="ra" style="font-size:16px;">→</span></span>
-    </a>
+    {jobs.map((j) => (
+      <a href="#apply" class="role" style="display:flex; flex-wrap:wrap; align-items:center; gap:10px 24px; padding:28px 0; border-bottom:1px solid #E2E1DD;">
+        <h3 style="flex:1 1 200px; font-family:'Archivo',sans-serif; font-weight:800; font-size:clamp(24px,2.4vw,34px); letter-spacing:-0.03em; text-transform:lowercase;">{j.title.toLowerCase()}</h3>
+        <div class="rmeta" style="font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#71706B;">{j.type}</div>
+        <div class="rmeta" style="font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:#71706B;">{j.office}</div>
+        <span class="rapply" style="margin-left:auto; display:flex; align-items:center; gap:10px; font-size:13px; font-weight:500; white-space:nowrap;">apply <span class="ra" style="font-size:16px;">→</span></span>
+      </a>
+    ))}
+    {!jobs.length && (
+      <p style="padding:28px 0; border-bottom:1px solid #E2E1DD; font-size:15px; line-height:1.7; color:#56554F;">No open positions right now — open applications are always welcome.</p>
+    )}
   </section>
 
   <!-- APPLICATION FORM -->
@@ -120,9 +112,7 @@ const jsonLd = [
           <div style="display:flex; flex-direction:column; gap:10px;">
             <label for="career-f3" style="font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#86857F;">Position</label>
             <select id="career-f3" class="fin" name="position">
-              <option>Architect</option>
-              <option>Interior Designer</option>
-              <option>Urban Planner</option>
+              {jobs.map((j) => <option>{j.title}</option>)}
               <option>Open application</option>
             </select>
           </div>

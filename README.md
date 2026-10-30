@@ -40,7 +40,7 @@ Project slugs: aa-house, ak-house, b-house, g-hotel, h-house, inside-out-house, 
 - Exact values for every component are inline in `design-source/*.dc.html`.
 
 ## Business data
-- Tiberias office: Tarshish 4, Kidmat HaGalil · Ramat HaSharon: Big Fashion Tower, Floor 5
+- Tiberias office: Tarshish 4, Kidmat HaGalil · Ramat HaSharon: Big Fashion Tower, Floor 5 (labelled "Tel Aviv" on the site — it is on the Tel Aviv border)
 - Office: office@bellish.co.il · 04-602-9585
 - Project statuses: Idea / In Progress / Construction / Complete (pulsing dot). Types: Private Houses / Residential / Offices / Hospitality.
 

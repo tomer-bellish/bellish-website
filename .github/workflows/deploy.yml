@@ -8,6 +8,10 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Monthly rebuild (1st of the month, 05:00–06:00 Israel time) so "updated <month>" on /career/ stays current.
+  # GitHub pauses scheduled runs after 60 days without commits and emails a warning; re-enable from the Actions tab.
+  schedule:
+    - cron: '0 3 1 * *'
 
 permissions:
   contents: read
