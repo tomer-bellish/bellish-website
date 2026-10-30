@@ -47,6 +47,10 @@ img.zoomable:focus-visible { outline: 3px solid #111110; outline-offset: -3px; }
 .skip { position: absolute; left: 16px; top: -100px; z-index: 100; padding: 12px 18px; background: #111110; color: #F5F4F2; font-size: 14px; font-weight: 600; }
 .skip:focus { top: 16px; }
 
+/* Form spam trap (Formspree "_gotcha"): hidden from everyone, including screen readers and the keyboard.
+   Bots that fill it in are discarded by Formspree. Kept in this stylesheet, not inline, so bots don't spot it. */
+.hp { display: none !important; }
+
 /* ── Header ── */
 .site-header { z-index: 50; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px 20px; }
 .site-header.light { position: sticky; top: 0; padding: 16px clamp(20px,5vw,48px); background: rgba(245,244,242,0.72); backdrop-filter: blur(14px); }

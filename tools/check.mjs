@@ -2,7 +2,7 @@
 // The deploy workflow runs it on every push to main and publishes nothing if any check fails.
 //   1. Links: every internal href/src/srcset/url() points to a file in dist/.
 //   2. SEO: title, description, canonical and og tags on every indexable page; JSON-LD parses;
-//      sitemap.xml lists exactly the indexable pages; redirect pages are noindex.
+//      sitemap.xml lists exactly the indexable pages; redirect pages are noindex. Forms keep their spam trap.
 //   3. Accessibility: axe-core reports no violations, at desktop and mobile widths.
 //   4. Consent: nothing third-party loads before "Accept" (except the accessibility toolbar),
 //      Google Analytics loads after it, and nothing loads after "Decline".
@@ -140,6 +140,11 @@ const robots = readFileSync(join(DIST, 'robots.txt'), 'utf8');
 if (!robots.includes(`Sitemap: ${SITE}/sitemap.xml`)) fail('sitemap', 'robots.txt does not point to the sitemap');
 if (/^Disallow:\s*\/\s*$/m.test(robots)) fail('sitemap', 'robots.txt blocks the whole site');
 if (readFileSync(join(DIST, 'CNAME'), 'utf8').trim() !== 'bellish.co.il') fail('sitemap', 'CNAME must be bellish.co.il');
+
+// Every Formspree form keeps its spam trap: a "_gotcha" field inside the hidden .hp wrapper.
+for (const p of browsable)
+  for (const m of p.html.matchAll(/<form\b[^>]*formspree\.io[\s\S]*?<\/form>/g))
+    if (!/<div class="hp">[^]*?name="_gotcha"/.test(m[0])) fail('forms', `${p.path}: Formspree form without the hidden "_gotcha" spam trap`);
 
 console.log(`Static: ${pages.length} HTML files (${indexable.length} indexable), ${refs} internal links, ${locs.length} sitemap URLs.`);
 

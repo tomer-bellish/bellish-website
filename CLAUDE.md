@@ -7,7 +7,8 @@ Work plan: [PLAN.md](PLAN.md). Accessibility / cookie compliance status and owne
 ## Layout — Astro site on `main` (live since 29.10.2026)
 This folder is the clone of `github.com/tomer-bellish/bellish-website`.
 - `src/layouts/Base.astro` — `<head>` (SEO tags, JSON-LD, consent script), skip link, menu + scroll-reveal scripts.
-- `src/components/` — Header, Footer, ProjectBody (project page), FormScript (Formspree forms).
+- `src/components/` — Header, Footer, ProjectBody (project page), FormScript (Formspree forms). Every form keeps a
+  hidden `_gotcha` spam trap (`<div class="hp">`, hidden in base.css); `npm run check` fails without it.
 - `src/data/projects.ts` — every project, in site order. Project pages, the grid, ItemList, breadcrumbs, next-project
   links and the sitemap all derive from it. `team.ts` — Studio team. `site.ts` — Organization JSON-LD.
 - `src/lib/images.ts` — srcset helper (adds the `-800.webp` variant only if the file exists).
