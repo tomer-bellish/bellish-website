@@ -220,7 +220,7 @@ export const projects: Project[] = [
   },
   {
     slug: "ak-house",
-    updated: "2026-08-03",
+    updated: "2026-11-09",
     title: "ak house",
     eyebrow: "Private Houses — Poriya",
     type: "Private Houses",
@@ -236,11 +236,11 @@ export const projects: Project[] = [
     para3: "Inside, the living spaces open fully onto the terraces, blurring the line between sheltered and open. A restrained palette of pale concrete, warm timber, and slender metal profiles keeps the architecture quiet — leaving the landscape, and the shifting shadows the pergolas cast across the day, as the primary material of the house.",
     hero: "ak-house-02.webp",
     gallery: ["ak-house-01.webp", "ak-house-03.webp", "ak-house-04.webp", "ak-house-05.webp"],
-    credits: { team: "Tomer Bellish, Hadar Hatav", collaborators: "—", render: "PB3DVIS" },
+    credits: { team: "Tomer Bellish, Hadar Hatav", collaborators: "Rotem Amsalem Interior Design", render: "PB3DVIS" },
   },
   {
     slug: "aa-house",
-    updated: "2026-07-08",
+    updated: "2026-11-09",
     title: "aa house",
     eyebrow: "Private Houses — Alumot",
     type: "Private Houses",
@@ -256,7 +256,7 @@ export const projects: Project[] = [
     para3: "The material palette combines white plaster, exposed concrete, and steel — a restrained composition that keeps the architecture quiet and lets the landscape of the valley lead.",
     hero: "aa-house-hero-1920.webp",
     gallery: ["aa-house-01.webp", "aa-house-02.webp"],
-    credits: { team: "Tomer Bellish, Hadar Hatav", collaborators: "—", render: "PB3DVIS" },
+    credits: { team: "Tomer Bellish, Hadar Hatav", collaborators: "Rotem Amsalem Interior Design", render: "PB3DVIS" },
   },
 ];
 
