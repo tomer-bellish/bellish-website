@@ -7,7 +7,10 @@ export const organization = {
   name: 'Bellish Architects',
   alternateName: ['בליש אדריכלים', 'בליש אדריכלות', 'משרד אדריכלים בליש', 'בליש אדריכלים ומתכנני ערים'],
   founder: [
-    { '@type': 'Person', name: 'Tomer Bellish', alternateName: ['תומר בליש', 'אדריכל תומר בליש'], jobTitle: 'Architect' },
+    {
+      '@type': 'Person', name: 'Tomer Bellish', alternateName: ['תומר בליש', 'אדריכל תומר בליש'], jobTitle: 'Architect',
+      sameAs: ['https://www.facebook.com/tomerbellish', 'https://www.instagram.com/tomerbellish'],
+    },
     { '@type': 'Person', name: 'Jenine Bellish', alternateName: ["ג'נין בליש", 'גנין בליש', "מתכננת ערים ג'נין בליש"], jobTitle: 'Urban Planner' },
   ],
   description: 'A young, dynamic architecture studio designing residential, office, and commercial buildings — with an emphasis on innovation, sustainability, and minimalism.',
