@@ -200,7 +200,7 @@ export const projects: Project[] = [
   },
   {
     slug: "kv-house",
-    updated: "2026-07-08",
+    updated: "2026-11-09",
     title: "kv house",
     eyebrow: "Private Houses — Sea of Galilee",
     type: "Private Houses",
@@ -216,7 +216,7 @@ export const projects: Project[] = [
     para3: "The architectural language emphasizes a complete sense of presence: seamless flooring, natural materials, and soft daylight guiding the space throughout the day — balancing intimate moments with open freedom, and understated luxury with effortless hospitality.",
     hero: "kv-house-hero-1920.webp",
     gallery: ["kv-house-01.webp", "kv-house-02.webp", "kv-house-03.webp", "kv-house-04.webp"],
-    credits: { team: "Tomer Bellish, Efrat Yakuti", collaborators: "—", render: "PB3DVIS" },
+    credits: { team: "Tomer Bellish, Efrat Yakuti", collaborators: "Adi Rubin Interior Design", render: "PB3DVIS" },
   },
   {
     slug: "ak-house",
